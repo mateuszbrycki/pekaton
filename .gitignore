@@ -1,0 +1,10 @@
+lib/
+.classpath
+.project
+.settings/
+target/
+test-output/
+bin/
+*.iml
+.idea
+.mvn/
