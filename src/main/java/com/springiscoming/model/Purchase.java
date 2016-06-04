@@ -1,5 +1,6 @@
 package com.springiscoming.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
@@ -16,6 +17,8 @@ public class Purchase {
 
     private Long purchaseId;
     private List<Product> products;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
     private Date orderDate;
     private Customer customer;
     private Double value;
