@@ -35,10 +35,10 @@ public class PromisingCustomersService {
         for(Customer customer : customersList) {
 
             PromisingCustomer promisingCustomer = new PromisingCustomer();
-
-            Float promisingCustomerFactor = calculatePromisingFactor(customer);
-
             promisingCustomer.setCustomer(customer);
+
+            Float promisingCustomerFactor = calculatePromisingFactor(promisingCustomer);
+
             promisingCustomer.setFactor(promisingCustomerFactor);
             result.add(promisingCustomer);
         }
@@ -47,9 +47,9 @@ public class PromisingCustomersService {
 
     }
 
-    private Float calculatePromisingFactor(Customer customer) {
+    private Float calculatePromisingFactor(PromisingCustomer promisingCustomer) {
 
-        Long customerId = customer.getCustomerId();
+        Long customerId = promisingCustomer.getCustomer().getCustomerId();
 
         //prepare factor data
         Float averageVisitTime = siteEntryService.getCustomerAverageVisitTime(customerId);
@@ -59,6 +59,12 @@ public class PromisingCustomersService {
         Integer purchasesCount = purchaseService.getPurchasesCounter(customerId);
         Float purchasesSummaryCost = purchaseService.getPurchasesSummaryCost(customerId);
 
+        promisingCustomer.setAverageVisitTime(averageVisitTime);
+        promisingCustomer.setVisitsCount(visitsCount);
+        promisingCustomer.setDirectVisitsCount(directVisitsCount);
+
+        promisingCustomer.setPurchasesCount(purchasesCount);
+        promisingCustomer.setPurchasesSummaryCost(purchasesSummaryCost);
 
         System.out.println("CustomerId: " + customerId +
                 ", averageVisitTime: " + averageVisitTime +
