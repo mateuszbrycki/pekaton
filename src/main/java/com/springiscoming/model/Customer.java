@@ -3,10 +3,7 @@ package com.springiscoming.model;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -22,10 +19,12 @@ public class Customer {
     @NotNull
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String postCode;
 
+    @Enumerated(EnumType.STRING)
     private Education education;
 
     private String eMail;
