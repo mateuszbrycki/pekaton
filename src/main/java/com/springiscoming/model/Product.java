@@ -1,5 +1,7 @@
 package com.springiscoming.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -34,6 +36,7 @@ public class Product {
         this.code = code;
     }
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "PURCHASE_ID")
     public Purchase getPurchase() {

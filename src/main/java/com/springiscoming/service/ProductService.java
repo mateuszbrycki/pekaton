@@ -16,11 +16,18 @@ public class ProductService {
     @Inject
     private ProductRepository productRepository;
 
+    @Inject
+    private MostPopularProductService mostPopularService;
+
     public void save(Product product) {
         productRepository.save(product);
     }
 
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getMostPopular() {
+        return mostPopularService.findMostPopular();
     }
 }
