@@ -5,7 +5,7 @@ import com.springiscoming.enums.Delivery;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -20,7 +20,9 @@ public class Order {
     @NotNull
     private Long id;
 
-    private HashMap<Product, Integer> products;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private List<Product> products;
 
     private Date orderDate;
 
@@ -32,7 +34,9 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
 
-    private HashMap<Product, Integer> productsReturned;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private List<Product> productsReturned;
 
     public Long getId() {
         return id;
@@ -42,11 +46,11 @@ public class Order {
         this.id = id;
     }
 
-    public HashMap<Product, Integer> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(HashMap<Product, Integer> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
@@ -82,11 +86,11 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public HashMap<Product, Integer> getProductsReturned() {
+    public List<Product> getProductsReturned() {
         return productsReturned;
     }
 
-    public void setProductsReturned(HashMap<Product, Integer> productsReturned) {
+    public void setProductsReturned(List<Product> productsReturned) {
         this.productsReturned = productsReturned;
     }
 
