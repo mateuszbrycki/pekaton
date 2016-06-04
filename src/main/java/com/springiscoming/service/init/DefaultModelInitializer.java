@@ -40,7 +40,7 @@ public class DefaultModelInitializer {
     private void posConstruct() {
 
         this.initCustomers();
-        //this.initSiteEntries();
+        this.initSiteEntries();
 
         Product product = new Product();
         product.setCode("code123");
@@ -65,7 +65,7 @@ public class DefaultModelInitializer {
         siteEntryService.save(new SiteEntry(false, 3, customerService.findOneById(3L)));
         siteEntryService.save(new SiteEntry(true, 100, customerService.findOneById(2L)));
         siteEntryService.save(new SiteEntry(true, 500, customerService.findOneById(4L)));
-        siteEntryService.save(new SiteEntry(true, 60, customerService.findOneById(6L)));
+        siteEntryService.save(new SiteEntry(true, 60, customerService.findOneById(3L)));
         siteEntryService.save(new SiteEntry(true, 4, customerService.findOneById(2L)));
 
     }

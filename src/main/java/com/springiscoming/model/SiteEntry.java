@@ -14,7 +14,7 @@ public class SiteEntry {
 
     private Integer visitTime;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id")
     private Customer customer;
 
