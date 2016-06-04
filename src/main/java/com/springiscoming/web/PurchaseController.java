@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,5 +26,10 @@ public class PurchaseController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Purchase> getAll() {
         return purchaseService.findAll();
+    }
+
+    @RequestMapping(path = "/statistics/daily", method = RequestMethod.GET)
+    public List<Purchase> getPurchasesByDay() {
+        return Collections.emptyList();
     }
 }
