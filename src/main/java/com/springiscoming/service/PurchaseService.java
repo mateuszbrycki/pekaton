@@ -16,7 +16,11 @@ public class PurchaseService {
     @Inject
     private PurchaseRepository purchaseRepository;
 
-    public Purchase saveOrder(Purchase purchase) {
+    public Purchase savePurchase(Purchase purchase) {
         return purchaseRepository.save(purchase);
+    }
+
+    public Purchase findPurchaseById(long purchaseId) {
+        return purchaseRepository.findOne(purchaseId);
     }
 }
