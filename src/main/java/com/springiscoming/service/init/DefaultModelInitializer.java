@@ -150,7 +150,7 @@ public class DefaultModelInitializer {
         Random call = new Random();
         int month = call.nextInt(Calendar.FEBRUARY) + Calendar.JANUARY;
         int year = 2016;
-        int day = call.nextInt(2) + 0;
+        int day = call.nextInt(5) + 0;
         GregorianCalendar calendar = new GregorianCalendar(year, month, day);
         return calendar.getTime();
     }
