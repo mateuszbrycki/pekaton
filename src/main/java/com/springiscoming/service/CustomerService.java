@@ -5,6 +5,7 @@ import com.springiscoming.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -23,5 +24,7 @@ public class CustomerService {
     public Customer findOneById(Long customerId) {
         return this.customerRepository.findOneByCustomerId(customerId);
     }
+
+    public List<Customer> findAll() {return this.customerRepository.findAll(); }
 
 }

@@ -50,9 +50,14 @@ public class DefaultModelInitializer {
 
     private void initOrders() {
         purchaseService.saveOrder(order(1L));
+
         purchaseService.saveOrder(order(2L));
+        purchaseService.saveOrder(order(2L));
+
         purchaseService.saveOrder(order(3L));
+
         purchaseService.saveOrder(order(4L));
+
         purchaseService.saveOrder(order(5L));
     }
 
@@ -84,13 +89,54 @@ public class DefaultModelInitializer {
 
     private void initSiteEntries() {
 
-        siteEntryService.save(new SiteEntry(true, 123, customerService.findOneById(1L)));
-        siteEntryService.save(new SiteEntry(true, 12, customerService.findOneById(2L)));
-        siteEntryService.save(new SiteEntry(false, 3, customerService.findOneById(3L)));
-        siteEntryService.save(new SiteEntry(true, 100, customerService.findOneById(2L)));
-        siteEntryService.save(new SiteEntry(true, 500, customerService.findOneById(4L)));
-        siteEntryService.save(new SiteEntry(true, 60, customerService.findOneById(3L)));
-        siteEntryService.save(new SiteEntry(true, 4, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(1L)));
+        siteEntryService.save(new SiteEntry(false, 180, customerService.findOneById(1L)));
+        siteEntryService.save(new SiteEntry(false, 180, customerService.findOneById(1L)));
+
+        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 100, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 15, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 8, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 4, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 15, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 58, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(2L)));
+        siteEntryService.save(new SiteEntry(false, 100, customerService.findOneById(2L)));
+
+        siteEntryService.save(new SiteEntry(true, 200, customerService.findOneById(3L)));
+        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(3L)));
+        siteEntryService.save(new SiteEntry(true, 300, customerService.findOneById(3L)));
+        siteEntryService.save(new SiteEntry(true, 20, customerService.findOneById(3L)));
+        siteEntryService.save(new SiteEntry(true, 15, customerService.findOneById(3L)));
+
+        siteEntryService.save(new SiteEntry(true, 400, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 16, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 78, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 98, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 400, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 37, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 78, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 500, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 550, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 600, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 14, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 89, customerService.findOneById(4L)));
+        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L)));
+
+        siteEntryService.save(new SiteEntry(true, 15, customerService.findOneById(5L)));
+        siteEntryService.save(new SiteEntry(true, 69, customerService.findOneById(5L)));
+        siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(5L)));
+        siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(5L)));
+        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L)));
+
+
 
     }
 }

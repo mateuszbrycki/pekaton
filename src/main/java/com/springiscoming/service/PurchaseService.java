@@ -19,4 +19,12 @@ public class PurchaseService {
     public Purchase saveOrder(Purchase purchase) {
         return purchaseRepository.save(purchase);
     }
+
+    public Integer getPurchasesCounter(Long customerId) {
+        return this.purchaseRepository.getPurchasesCounter(customerId);
+    }
+
+    public Float getPurchasesSummaryCost(Long customerId) {
+        return this.purchaseRepository.getPurchasesSummaryCost(customerId);
+    }
 }
