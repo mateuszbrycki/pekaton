@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 /**
@@ -46,7 +48,7 @@ public class DefaultModelInitializer {
         initSiteEntries();
         initProducts();
     }
-    
+
     private void initPurchases() {
 
         purchaseService.savePurchase(order(1L));
@@ -64,7 +66,7 @@ public class DefaultModelInitializer {
 
     private Purchase order(long customerId) {
         return new Purchase(productService.getAll(),
-                new Date(),
+                generateRandomDate(),
                 customerService.findOneById(customerId),
                 new Random().nextDouble() * 100,
                 Delivery.Courier);
@@ -142,5 +144,14 @@ public class DefaultModelInitializer {
         siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(5L)));
         siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(5L)));
         siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L)));
+    }
+
+    private Date generateRandomDate() {
+        Random call = new Random();
+        int month = call.nextInt(Calendar.FEBRUARY) + Calendar.JANUARY;
+        int year = 2016;
+        int day = call.nextInt(2) + 0;
+        GregorianCalendar calendar = new GregorianCalendar(year, month, day);
+        return calendar.getTime();
     }
 }
