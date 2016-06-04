@@ -15,6 +15,8 @@ public class Product {
     private Long productId;
     private String code;
     private Purchase purchase;
+    private Float price;
+    private String name;
 
     @Id
     @GeneratedValue
@@ -43,6 +45,24 @@ public class Product {
         return purchase;
     }
 
+    @Column
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    @Column
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setPurchase(Purchase purchase) {
         this.purchase = purchase;
     }
@@ -50,9 +70,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String code, Purchase purchase) {
+    public Product(String code, Purchase purchase, Float price, String name) {
         this.code = code;
         this.purchase = purchase;
+        this.price = price;
+        this.name = name;
     }
 
     @Override
@@ -60,6 +82,9 @@ public class Product {
         return "Product{" +
                 "productId=" + productId +
                 ", code='" + code + '\'' +
+                ", purchase=" + purchase +
+                ", price=" + price +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
