@@ -19,6 +19,10 @@ public class Product {
 
     private String code;
 
+    public Product(String code) {
+        this.code = code;
+    }
+
     public Long getProductId() {
         return productId;
     }

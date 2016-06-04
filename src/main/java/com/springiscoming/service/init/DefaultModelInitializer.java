@@ -1,13 +1,13 @@
 package com.springiscoming.service.init;
 
+import com.springiscoming.enums.Delivery;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 import com.springiscoming.model.Customer;
-import com.springiscoming.model.Product;
+import com.springiscoming.model.Purchase;
 import com.springiscoming.model.SiteEntry;
-import com.springiscoming.repository.CustomerRepository;
 import com.springiscoming.service.CustomerService;
-import com.springiscoming.service.OrderService;
+import com.springiscoming.service.PurchaseService;
 import com.springiscoming.service.ProductService;
 import com.springiscoming.service.SiteEntryService;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -25,7 +28,7 @@ import javax.inject.Inject;
 public class DefaultModelInitializer {
 
     @Inject
-    private OrderService orderService;
+    private PurchaseService purchaseService;
 
     @Inject
     private ProductService productService;
@@ -38,14 +41,35 @@ public class DefaultModelInitializer {
 
     @PostConstruct
     private void posConstruct() {
+        initProducts();
+        initCustomers();
+        initOrders();
+        initSiteEntries();
 
-        this.initCustomers();
-        this.initSiteEntries();
+    }
 
-        Product product = new Product();
-        product.setCode("code123");
+    private void initOrders() {
+        purchaseService.saveOrder(order(1L));
+        purchaseService.saveOrder(order(2L));
+        purchaseService.saveOrder(order(3L));
+        purchaseService.saveOrder(order(4L));
+        purchaseService.saveOrder(order(5L));
+    }
 
-        productService.save(product);
+    private Purchase order(long customerId) {
+        return new Purchase(productService.getAll(),
+                new Date(),
+                customerService.findOneById(customerId),
+                new Random().nextDouble() * 100,
+                Delivery.Courier,
+                Collections.emptyList());
+    }
+
+    private void initProducts() {
+//        productService.save(new Product("code123"));
+//        productService.save(new Product("code124"));
+//        productService.save(new Product("code125"));
+//        productService.save(new Product("code126"));
     }
 
     private void initCustomers() {

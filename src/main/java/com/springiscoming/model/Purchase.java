@@ -3,7 +3,6 @@ package com.springiscoming.model;
 import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -12,21 +11,21 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "ORDER")
-public class Order {
+@Table(name = "PURCHASE")
+public class Purchase {
 
     @Id
     @GeneratedValue
-    @NotNull
-    private Long id;
+    private Long purchaseId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "productId")
     private List<Product> products;
 
     private Date orderDate;
 
     @OneToOne
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Customer customer;
 
     private Double value;
@@ -34,16 +33,25 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
-    private List<Product> productsReturned;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "productId")
+//    private List<Product> productsReturned;
 
-    public Long getId() {
-        return id;
+    public Purchase(List<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery, List<Product> productsReturned) {
+        this.products = products;
+        this.orderDate = orderDate;
+        this.customer = customer;
+        this.value = value;
+        this.delivery = delivery;
+//        this.productsReturned = productsReturned;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(Long purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
     public List<Product> getProducts() {
@@ -86,24 +94,24 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public List<Product> getProductsReturned() {
-        return productsReturned;
-    }
+//    public List<Product> getProductsReturned() {
+////        return productsReturned;
+//    }
 
-    public void setProductsReturned(List<Product> productsReturned) {
-        this.productsReturned = productsReturned;
-    }
+//    public void setProductsReturned(List<Product> productsReturned) {
+//        this.productsReturned = productsReturned;
+//    }
 
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "purchaseId=" + purchaseId +
                 ", products=" + products +
                 ", orderDate=" + orderDate +
                 ", customer=" + customer +
                 ", value=" + value +
                 ", delivery=" + delivery +
-                ", productsReturned=" + productsReturned +
+//                ", productsReturned=" + productsReturned +
                 '}';
     }
 }
