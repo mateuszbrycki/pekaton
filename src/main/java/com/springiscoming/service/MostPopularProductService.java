@@ -18,6 +18,9 @@ public class MostPopularProductService {
     @Inject
     private PurchaseService purchaseService;
 
+    @Inject
+    private ProductService productService;
+
     public List<Product> findMostPopular() {
         List<Purchase> purchases = purchaseService.findAll();
 
@@ -25,31 +28,49 @@ public class MostPopularProductService {
     }
 
     private List<Product> findMostPopularProducts(List<Purchase> purchases) {
-        Map<Product, Integer> productOccurrenceMap = new HashMap<>();
-        countOccurences(purchases, productOccurrenceMap);
+        Map<String, Integer> codeOccurrenceMap = new HashMap<>();
+        Map<Product, Integer> productOccurenceMap = countOccurrences(purchases, codeOccurrenceMap);
 
-        Map<Product, Integer> sortedByOccurrence = sortByValue(productOccurrenceMap);
-        return withHighestOccurences(purchases, sortedByOccurrence.keySet());
+        Map<Product, Integer> sortedByOccurrence = sortByValue(productOccurenceMap);
+        Set<Product> products = sortedByOccurrence.keySet();
+
+        if (products.size() < purchases.size()) {
+            return new ArrayList<>(products);
+        }
+        return withHighestOccurrences(purchases, products);
     }
 
-    private List<Product> withHighestOccurences(List<Purchase> purchases, Set<Product> products) {
-        //todo retrieve subset from products
-        ArrayList<Product> p = new ArrayList<>();
-        p.addAll(products);
-        return p;
-    }
-
-    private void countOccurences(List<Purchase> purchases, Map<Product, Integer> productOccurenceMap) {
+    private Map<Product, Integer> countOccurrences(List<Purchase> purchases, Map<String, Integer> productCodeOccurenceMap) {
         for (Purchase purchase : purchases) {
             for (Product product : purchase.getProducts()) {
-                if (productOccurenceMap.containsKey(product)) {
-                    Integer occurence = productOccurenceMap.get(product);
-                    productOccurenceMap.put(product, ++occurence);
+
+                String code = product.getCode();
+                if (productCodeOccurenceMap.containsKey(code)) {
+                    Integer occurrence = productCodeOccurenceMap.get(code);
+                    productCodeOccurenceMap.put(code, ++occurrence);
                 } else {
-                    productOccurenceMap.put(product, 1);
+                    productCodeOccurenceMap.put(code, 1);
                 }
             }
         }
+
+        return getProductWithOccurrences(purchases, productCodeOccurenceMap);
+    }
+
+    private Map<Product, Integer> getProductWithOccurrences(List<Purchase> purchases, Map<String, Integer> productCodeOccurenceMap) {
+        Map<Product, Integer> productOccurrenceMap = new HashMap<>();
+
+        List<Product> products = productService.getAll();
+        for(String code : productCodeOccurenceMap.keySet()) {
+            Product productByCode = products.stream().filter(product -> product.getCode().equals(code)).findFirst().get();
+            productOccurrenceMap.put(productByCode, productCodeOccurenceMap.get(code));
+        }
+        return productOccurrenceMap;
+    }
+
+    private List<Product> withHighestOccurrences(List<Purchase> purchases, Set<Product> products) {
+        List<Product> list = new ArrayList<>(products);
+        return list.subList(0, purchases.size());
     }
 
     public static <K, V extends Comparable<? super V>> Map<K, V>
