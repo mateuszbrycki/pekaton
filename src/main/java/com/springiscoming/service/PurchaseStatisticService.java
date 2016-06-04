@@ -22,19 +22,29 @@ public class PurchaseStatisticService {
     private DateFormatter dateFormatter;
 
     private static Map<String, Integer> datesCounterMap = new HashMap<>();
+    private static Map<String, Double> valuesMap = new HashMap<>();
+    private static Map<String, Integer> productsCounterMap = new HashMap<>();
 
     public List<PurchaseStatistic> getStatistics(List<Purchase> purchases) {
         for (Purchase purchase : purchases) {
             Date orderDate = purchase.getOrderDate();
+            Double value = purchase.getValue();
+            Integer productCounter = purchase.getProducts().size();
             String formattedDate = formatDate(orderDate);
             if (datesCounterMap.containsKey(formattedDate)) {
                 Integer counter = datesCounterMap.get(formattedDate);
                 datesCounterMap.put(formattedDate, ++counter);
+                Double v = valuesMap.get(formattedDate);
+                valuesMap.put(formattedDate, value + v);
+                Integer pCounter = productsCounterMap.get(formattedDate);
+                productsCounterMap.put(formattedDate, pCounter + productCounter);
             } else {
                 datesCounterMap.put(formattedDate, 1);
+                valuesMap.put(formattedDate, value);
+                productsCounterMap.put(formattedDate, 1);
             }
         }
-        return datesCounterMap.keySet().stream().map(s -> new PurchaseStatistic(s, datesCounterMap.get(s))).collect(Collectors.toList());
+        return datesCounterMap.keySet().stream().map(s -> new PurchaseStatistic(s, datesCounterMap.get(s), productsCounterMap.get(s), valuesMap.get(s) )).collect(Collectors.toList());
     }
 
     private String formatDate(Date orderDate) {
