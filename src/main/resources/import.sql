@@ -1,5 +1,5 @@
 INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('email1@gmail.com', 'Higher', 'Male', '31-350');
 INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('email5@default.com', 'General', 'Female', '22-222');
-INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('email3#gmail.com', 'Secondary', 'Male', '33-222');
+INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('email3@gmail.com', 'Secondary', 'Male', '33-222');
 INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('email4@default.com', 'Secondary', 'Female', '31-356');
 INSERT INTO CUSTOMER(E_MAIL, EDUCATION, GENDER, POST_CODE) VALUES ('winio94@gmail.com', 'General', 'Male', '31-312');
