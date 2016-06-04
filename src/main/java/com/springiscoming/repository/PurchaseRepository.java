@@ -2,6 +2,8 @@ package com.springiscoming.repository;
 
 import com.springiscoming.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +13,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
+    @Query("SELECT COUNT(*) FROM Purchase pu WHERE pu.customer.id = :customerId")
+    Integer getPurchasesCounter(@Param("customerId") Long customerId);
+
+    @Query("SELECT SUM(pu.value) FROM Purchase pu WHERE pu.customer.id = :customerId")
+    Float getPurchasesSummaryCost(@Param("customerId") Long customerId);
 }

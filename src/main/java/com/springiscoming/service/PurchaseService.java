@@ -23,4 +23,12 @@ public class PurchaseService {
     public Purchase findPurchaseById(long purchaseId) {
         return purchaseRepository.findOne(purchaseId);
     }
+
+    public Integer getPurchasesCounter(Long customerId) {
+        return this.purchaseRepository.getPurchasesCounter(customerId);
+    }
+
+    public Float getPurchasesSummaryCost(Long customerId) {
+        return this.purchaseRepository.getPurchasesSummaryCost(customerId);
+    }
 }

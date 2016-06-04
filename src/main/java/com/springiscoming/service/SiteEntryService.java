@@ -22,4 +22,17 @@ public class SiteEntryService {
         return this.siteEntryRepository.findAll();
     }
 
+    public Float getCustomerAverageVisitTime(Long customerId) {
+        return this.siteEntryRepository.getCustomerAverageVisitTime(customerId);
+    }
+
+    public Integer getCustomerVisitsCounter(Long customerId) {
+        return this.siteEntryRepository.getCustomerVisitsCounter(customerId);
+    }
+
+    public Integer getCustomerDirectVisitsCounter(Long customerId) {
+        return this.siteEntryRepository.getCustomerDirectVisitsCounter(customerId);
+    }
+
+
 }
