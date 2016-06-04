@@ -70,9 +70,13 @@ public class DefaultModelInitializer {
     }
 
     private void initProducts() {
-        productService.save(new Product("code123", purchaseService.findPurchaseById(1L)));
-        productService.save(new Product("code124", purchaseService.findPurchaseById(2L)));
-        productService.save(new Product("code125", purchaseService.findPurchaseById(3L)));
+        productService.save(new Product("code123", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
+        productService.save(new Product("code124", purchaseService.findPurchaseById(2L), 11.99F, "product2"));
+        productService.save(new Product("code125", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
+
+        productService.save(new Product("code125", purchaseService.findPurchaseById(2L), 11.99F, "product3"));
+        productService.save(new Product("code125", purchaseService.findPurchaseById(2L), 11.99F, "product3"));
+        productService.save(new Product("code125", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
     }
 
     private void initCustomers() {
@@ -133,8 +137,5 @@ public class DefaultModelInitializer {
         siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(5L)));
         siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(5L)));
         siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L)));
-
-
-
     }
 }
