@@ -2,10 +2,7 @@ package com.springiscoming.model;
 
 import com.springiscoming.enums.Delivery;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,10 +24,12 @@ public class Order {
 
     private Date orderDate;
 
+    @OneToOne
     private Customer customer;
 
     private Double value;
 
+    @Enumerated(EnumType.STRING)
     private Delivery delivery;
 
     private HashMap<Product, Integer> productsReturned;

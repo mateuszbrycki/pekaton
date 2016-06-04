@@ -1,9 +1,6 @@
 package com.springiscoming.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "SITE_ENTRY")
@@ -11,20 +8,22 @@ public class SiteEntry {
 
     @Id
     @GeneratedValue
-    private String id;
+    private String entryId;
 
     private Boolean isDirectEntry;
 
     private Integer visitTime;
 
-    //private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Customer customer;
 
-    public String getId() {
-        return id;
+    public String getEntryId() {
+        return entryId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEntryId(String entryId) {
+        this.entryId = entryId;
     }
 
     public Boolean getDirectEntry() {
@@ -43,7 +42,7 @@ public class SiteEntry {
         this.visitTime = visitTime;
     }
 
-    /*public Customer getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
@@ -54,10 +53,10 @@ public class SiteEntry {
     @Override
     public String toString() {
         return "SiteEntry{" +
-                "id='" + id + '\'' +
+                "entryId='" + entryId + '\'' +
                 ", isDirectEntry=" + isDirectEntry +
                 ", visitTime=" + visitTime +
                 ", customer=" + customer +
                 '}';
-    }*/
+    }
 }
