@@ -1,9 +1,6 @@
 package com.springiscoming.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -13,16 +10,13 @@ import javax.persistence.Table;
 @Table(name = "PRODUCT")
 public class Product {
 
+    private Long productId;
+    private String code;
+    private Purchase purchase;
+
     @Id
     @GeneratedValue
-    private Long productId;
-
-    private String code;
-
-    public Product(String code) {
-        this.code = code;
-    }
-
+    @Column(name = "PRODUCT_ID")
     public Long getProductId() {
         return productId;
     }
@@ -31,12 +25,31 @@ public class Product {
         this.productId = productId;
     }
 
+    @Column
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "PURCHASE_ID")
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+
+    public Product() {
+    }
+
+    public Product(String code, Purchase purchase) {
+        this.code = code;
+        this.purchase = purchase;
     }
 
     @Override

@@ -14,38 +14,17 @@ import java.util.List;
 @Table(name = "PURCHASE")
 public class Purchase {
 
-    @Id
-    @GeneratedValue
     private Long purchaseId;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "productId")
     private List<Product> products;
-
     private Date orderDate;
-
-    @OneToOne
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Customer customer;
-
     private Double value;
-
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "productId")
-//    private List<Product> productsReturned;
-
-    public Purchase(List<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery, List<Product> productsReturned) {
-        this.products = products;
-        this.orderDate = orderDate;
-        this.customer = customer;
-        this.value = value;
-        this.delivery = delivery;
-//        this.productsReturned = productsReturned;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PURCHASE_ID")
     public Long getPurchaseId() {
         return purchaseId;
     }
@@ -54,6 +33,8 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "PRODUCT_ID")
     public List<Product> getProducts() {
         return products;
     }
@@ -62,6 +43,7 @@ public class Purchase {
         this.products = products;
     }
 
+    @Column
     public Date getOrderDate() {
         return orderDate;
     }
@@ -70,6 +52,7 @@ public class Purchase {
         this.orderDate = orderDate;
     }
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     public Customer getCustomer() {
         return customer;
     }
@@ -78,6 +61,7 @@ public class Purchase {
         this.customer = customer;
     }
 
+    @Column
     public Double getValue() {
         return value;
     }
@@ -86,6 +70,7 @@ public class Purchase {
         this.value = value;
     }
 
+    @Column
     public Delivery getDelivery() {
         return delivery;
     }
@@ -94,13 +79,16 @@ public class Purchase {
         this.delivery = delivery;
     }
 
-//    public List<Product> getProductsReturned() {
-////        return productsReturned;
-//    }
+    public Purchase() {
+    }
 
-//    public void setProductsReturned(List<Product> productsReturned) {
-//        this.productsReturned = productsReturned;
-//    }
+    public Purchase(List<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery) {
+        this.products = products;
+        this.orderDate = orderDate;
+        this.customer = customer;
+        this.value = value;
+        this.delivery = delivery;
+    }
 
     @Override
     public String toString() {
@@ -111,7 +99,6 @@ public class Purchase {
                 ", customer=" + customer +
                 ", value=" + value +
                 ", delivery=" + delivery +
-//                ", productsReturned=" + productsReturned +
                 '}';
     }
 }
