@@ -1,6 +1,7 @@
 package com.springiscoming.service;
 
 import com.springiscoming.model.Purchase;
+import com.springiscoming.model.PurchaseStatistic;
 import com.springiscoming.repository.PurchaseRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class PurchaseService {
 
     @Inject
     private PurchaseRepository purchaseRepository;
+
+    @Inject PurchaseStatisticService purchaseStatisticService;
 
     public Purchase savePurchase(Purchase purchase) {
         return purchaseRepository.save(purchase);
@@ -35,5 +38,10 @@ public class PurchaseService {
 
     public List<Purchase> findAll() {
         return purchaseRepository.findAll();
+    }
+
+    public List<PurchaseStatistic> getPurchaseStatistics() {
+        List<Purchase> purchases = purchaseRepository.findAll();
+        return purchaseStatisticService.getStatistics(purchases);
     }
 }
