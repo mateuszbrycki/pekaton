@@ -88,7 +88,7 @@ public class DefaultModelInitializer {
 
         customerService.save(new Customer(Gender.Male, "31-350", Education.Higher, "email1@gmail.com"));
         customerService.save(new Customer(Gender.Female, "22-222", Education.Higher, "email5@default.com"));
-        customerService.save(new Customer(Gender.Male, "33-222", Education.Higher, "email3@gmail.com'"));
+        customerService.save(new Customer(Gender.Male, "33-222", Education.Higher, "email3@gmail.com"));
         customerService.save(new Customer(Gender.Female, "31-356", Education.Higher, "email4@default.com"));
         customerService.save(new Customer(Gender.Male, "31-312", Education.Higher, "winio94@gmail.com"));
 

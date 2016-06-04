@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 
-/**
- * Created by winio_000 on 2016-06-04.
- */
 @Service
 public class ProductService {
 
@@ -23,11 +20,19 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public Product findOneByCode(String code) {
+        return this.productRepository.findFirstByCodeOrderByProductId(code);
+    }
+
     public List<Product> getAll() {
         return productRepository.findAll();
     }
 
     public List<Product> getMostPopular() {
         return mostPopularService.findMostPopular();
+    }
+
+    public List<Product> getProductListsByPurchaseId(Long purchaseId) {
+        return productRepository.getProductListsByPurchaseId(purchaseId);
     }
 }
