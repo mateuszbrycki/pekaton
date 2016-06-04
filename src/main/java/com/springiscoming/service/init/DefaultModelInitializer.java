@@ -50,15 +50,16 @@ public class DefaultModelInitializer {
     private void initPurchases() {
 
         purchaseService.savePurchase(order(1L));
-
         purchaseService.savePurchase(order(2L));
         purchaseService.savePurchase(order(2L));
-
         purchaseService.savePurchase(order(3L));
-
         purchaseService.savePurchase(order(4L));
-
         purchaseService.savePurchase(order(5L));
+        purchaseService.savePurchase(order(6L));
+        purchaseService.savePurchase(order(7L));
+        purchaseService.savePurchase(order(8L));
+        purchaseService.savePurchase(order(9L));
+        purchaseService.savePurchase(order(10L));
     }
 
     private Purchase order(long customerId) {
@@ -70,13 +71,17 @@ public class DefaultModelInitializer {
     }
 
     private void initProducts() {
-        productService.save(new Product("code123", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
-        productService.save(new Product("code124", purchaseService.findPurchaseById(2L), 11.99F, "product2"));
-        productService.save(new Product("code125", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
+        productService.save(new Product("code1", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
+        productService.save(new Product("code1", purchaseService.findPurchaseById(2L), 11.99F, "product1"));
+        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
+        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
+        productService.save(new Product("code2", purchaseService.findPurchaseById(1L), 11.99F, "product2"));
+        productService.save(new Product("code2", purchaseService.findPurchaseById(2L), 11.99F, "product2"));
+        productService.save(new Product("code3", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
+        productService.save(new Product("code3", purchaseService.findPurchaseById(4L), 11.99F, "product3"));
+        productService.save(new Product("code3", purchaseService.findPurchaseById(1L), 11.99F, "product3"));
+        productService.save(new Product("code4", purchaseService.findPurchaseById(1L), 11.99F, "product4"));
 
-        productService.save(new Product("code125", purchaseService.findPurchaseById(2L), 11.99F, "product3"));
-        productService.save(new Product("code125", purchaseService.findPurchaseById(2L), 11.99F, "product3"));
-        productService.save(new Product("code125", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
     }
 
     private void initCustomers() {
