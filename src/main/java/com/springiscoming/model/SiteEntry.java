@@ -18,6 +18,14 @@ public class SiteEntry {
     @JoinColumn(name = "id")
     private Customer customer;
 
+    public SiteEntry() {}
+
+    public SiteEntry(Boolean isDirectEntry, Integer visitTime, Customer customer) {
+        this.isDirectEntry = isDirectEntry;
+        this.visitTime = visitTime;
+        this.customer = customer;
+    }
+
     public String getEntryId() {
         return entryId;
     }

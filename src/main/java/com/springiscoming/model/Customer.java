@@ -4,8 +4,6 @@ import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by winio_000 on 2016-06-04.
  */
@@ -16,8 +14,7 @@ public class Customer {
 
     @Id
     @GeneratedValue
-    @NotNull
-    private Long id;
+    private Long customerId;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -29,12 +26,21 @@ public class Customer {
 
     private String eMail;
 
-    public Long getId() {
-        return id;
+    public Customer() {}
+
+    public Customer(Gender gender, String postCode, Education education, String eMail) {
+        this.gender = gender;
+        this.postCode = postCode;
+        this.education = education;
+        this.eMail = eMail;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public Gender getGender() {
@@ -72,7 +78,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "customerId=" + customerId +
                 ", gender=" + gender +
                 ", postCode='" + postCode + '\'' +
                 ", education=" + education +
