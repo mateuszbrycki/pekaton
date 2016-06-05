@@ -4,7 +4,7 @@ import com.springiscoming.enums.Gender;
 import com.springiscoming.model.Customer;
 import com.springiscoming.model.promising.PromisingCustomer;
 import com.springiscoming.service.CustomerService;
-import com.springiscoming.service.primising.PromisingCustomersService;
+import com.springiscoming.service.promising.PromisingCustomersService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,4 +1,4 @@
-package com.springiscoming.service.primising;
+package com.springiscoming.service.promising;
 
 import com.springiscoming.model.Customer;
 import com.springiscoming.model.promising.PromisingCustomer;
