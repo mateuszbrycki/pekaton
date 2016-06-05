@@ -16,6 +16,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     @Query("SELECT COUNT(*) FROM Purchase pu WHERE pu.customer.id = :customerId")
     Integer getPurchasesCounter(@Param("customerId") Long customerId);
 
-    @Query("SELECT SUM(pu.value) FROM Purchase pu WHERE pu.customer.id = :customerId")
+    @Query("SELECT COALESCE(SUM(pu.value),0) FROM Purchase pu WHERE pu.customer.id = :customerId")
     Float getPurchasesSummaryCost(@Param("customerId") Long customerId);
 }
