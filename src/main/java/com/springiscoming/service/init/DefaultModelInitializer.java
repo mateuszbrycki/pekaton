@@ -17,12 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
-
-import static java.lang.String.valueOf;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -43,6 +39,9 @@ public class DefaultModelInitializer {
 
     @Inject
     private SiteEntryService siteEntryService;
+
+    @Inject
+    private PostalCodePovider postalCodePovider;
 
     @PostConstruct
     private void posConstruct() {
@@ -110,7 +109,8 @@ public class DefaultModelInitializer {
     }
 
     private String randomPostCode() {
-        return valueOf(randomInt(30)) + "-" + valueOf(randomInt(400));
+        List<String> codes = postalCodePovider.postalCodes();
+        return codes.get(new Random().nextInt(codes.size() - 1));
     }
 
     private int randomInt(int bound) {
@@ -172,5 +172,5 @@ public class DefaultModelInitializer {
         siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(5L), DateUtils.generateRandomDate()));
         siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L), DateUtils.generateRandomDate()));
     }
-    
+
 }

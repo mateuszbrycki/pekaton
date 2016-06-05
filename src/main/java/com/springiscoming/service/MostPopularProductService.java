@@ -2,11 +2,11 @@ package com.springiscoming.service;
 
 import com.springiscoming.model.Product;
 import com.springiscoming.model.Purchase;
+import com.springiscoming.util.MapSortService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -31,7 +31,7 @@ public class MostPopularProductService {
         Map<String, Integer> codeOccurrenceMap = new HashMap<>();
         Map<Product, Integer> productOccurenceMap = countOccurrences(purchases, codeOccurrenceMap);
 
-        Map<Product, Integer> sortedByOccurrence = sortByValue(productOccurenceMap);
+        Map<Product, Integer> sortedByOccurrence = MapSortService.sortByValue(productOccurenceMap);
         Set<Product> products = sortedByOccurrence.keySet();
 
         if (products.size() < purchases.size()) {
@@ -61,7 +61,7 @@ public class MostPopularProductService {
         Map<Product, Integer> productOccurrenceMap = new HashMap<>();
 
         List<Product> products = productService.getAll();
-        for(String code : productCodeOccurenceMap.keySet()) {
+        for (String code : productCodeOccurenceMap.keySet()) {
             Product productByCode = products.stream().filter(product -> product.getCode().equals(code)).findFirst().get();
             productOccurrenceMap.put(productByCode, productCodeOccurenceMap.get(code));
         }
@@ -71,16 +71,5 @@ public class MostPopularProductService {
     private List<Product> withHighestOccurrences(List<Purchase> purchases, Set<Product> products) {
         List<Product> list = new ArrayList<>(products);
         return list.subList(0, purchases.size());
-    }
-
-    public static <K, V extends Comparable<? super V>> Map<K, V>
-    sortByValue(Map<K, V> map) {
-        Map<K, V> result = new LinkedHashMap<>();
-        Stream<Map.Entry<K, V>> st = map.entrySet().stream();
-
-        st.sorted(Map.Entry.comparingByValue())
-                .forEachOrdered(e -> result.put(e.getKey(), e.getValue()));
-
-        return result;
     }
 }

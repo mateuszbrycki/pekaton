@@ -3,7 +3,7 @@ package com.springiscoming.service;
 import com.springiscoming.model.SiteEntry;
 import com.springiscoming.model.SiteEntryStatistic;
 import com.springiscoming.repository.SiteEntryRepository;
-import com.springiscoming.util.SiteEntryComparator;
+import com.springiscoming.util.comparators.SiteEntryComparator;
 import org.springframework.stereotype.Service;
 
 
