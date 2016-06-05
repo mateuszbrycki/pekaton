@@ -13,10 +13,13 @@ public class FacebookReview {
 
     private Integer reviewValue;
 
-    public FacebookReview(String reviewText, Date reviewAddDate, Integer reviewValue) {
+    private String userName;
+
+    public FacebookReview(String reviewText, Date reviewAddDate, Integer reviewValue, String userName) {
         this.reviewText = reviewText;
         this.reviewAddDate = reviewAddDate;
         this.reviewValue = reviewValue;
+        this.userName = userName;
     }
 
     public String getReviewText() {
@@ -41,5 +44,13 @@ public class FacebookReview {
 
     public void setReviewValue(Integer reviewValue) {
         this.reviewValue = reviewValue;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

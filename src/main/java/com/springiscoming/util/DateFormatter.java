@@ -11,4 +11,8 @@ public class DateFormatter {
     public String formatDate(Date orderDate) {
         return new DateTime(orderDate).toString("yyyy/MM/dd");
     }
+
+    public Date format(String purchaseDate) {
+        return new Date(purchaseDate);
+    }
 }

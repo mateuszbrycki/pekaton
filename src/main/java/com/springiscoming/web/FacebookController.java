@@ -22,6 +22,7 @@ public class FacebookController {
 
     @RequestMapping(path="/likes", method = RequestMethod.GET)
     public List<FacebookLike> facebookLikes() {
+
         return facebookService.getFacebookLikesByDay();
     }
 
