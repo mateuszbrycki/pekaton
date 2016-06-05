@@ -1,40 +1,37 @@
 package com.springiscoming.web;
 
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.stereotype.Controller;
+import com.springiscoming.model.facebook.FacebookComment;
+import com.springiscoming.model.facebook.FacebookLike;
+import com.springiscoming.model.facebook.FacebookReview;
+import com.springiscoming.service.FacebookService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.List;
 
-/**
- * Created by Mateusz on 04.06.2016.
- */
-@Controller
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping(path = "/facebook")
 public class FacebookController {
 
-    //    @Inject
-    private Facebook facebook;
-
-    //    @Inject
-    private ConnectionRepository connectionRepository;
-
     @Inject
-    public FacebookController(Facebook facebook, ConnectionRepository connectionRepository) {
-        this.facebook = facebook;
-        this.connectionRepository = connectionRepository;
+    private FacebookService facebookService;
+
+    @RequestMapping(path="/likes", method = RequestMethod.GET)
+    public List<FacebookLike> facebookLikes() {
+        return facebookService.getFacebookLikesByDay();
     }
 
+    @RequestMapping(path="/comments", method = RequestMethod.GET)
+    public List<FacebookComment> facebookComments() {
+        return facebookService.getFacebookComments();
+    }
 
-    @RequestMapping(path ="/facebook", method = RequestMethod.GET)
-    public String facebook() {
-        if (connectionRepository.findPrimaryConnection(Facebook.class) == null) {
-            return "redirect:/connect/facebook";
-        }
-
-        String firstName = facebook.userOperations().getUserProfile().getFirstName();
-        return firstName;
-
+    @RequestMapping(path="/reviews", method = RequestMethod.GET)
+    public List<FacebookReview> facebookReviews() {
+        return facebookService.getFacebookReviews();
     }
 }

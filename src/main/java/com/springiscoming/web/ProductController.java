@@ -14,9 +14,6 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by winio_000 on 2016-06-04.
- */
 
 @CrossOrigin(origins = "*")
 @RestController

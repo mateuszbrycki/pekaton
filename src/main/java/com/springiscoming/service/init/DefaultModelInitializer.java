@@ -11,6 +11,7 @@ import com.springiscoming.service.CustomerService;
 import com.springiscoming.service.ProductService;
 import com.springiscoming.service.PurchaseService;
 import com.springiscoming.service.SiteEntryService;
+import com.springiscoming.util.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,7 +67,7 @@ public class DefaultModelInitializer {
 
     private Purchase order(long customerId) {
         return new Purchase(productService.getAll(),
-                generateRandomDate(),
+                DateUtils.generateRandomDate(),
                 customerService.findOneById(customerId),
                 new Random().nextDouble() * 100,
                 Delivery.Courier);
@@ -146,12 +147,5 @@ public class DefaultModelInitializer {
         siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L)));
     }
 
-    private Date generateRandomDate() {
-        Random call = new Random();
-        int month = call.nextInt(Calendar.FEBRUARY) + Calendar.JANUARY;
-        int year = 2016;
-        int day = call.nextInt(5) + 0;
-        GregorianCalendar calendar = new GregorianCalendar(year, month, day);
-        return calendar.getTime();
-    }
+
 }

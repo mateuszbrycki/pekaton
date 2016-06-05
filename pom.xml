@@ -69,6 +69,12 @@
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-facebook</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.restfb</groupId>
+			<artifactId>restfb</artifactId>
+			<version>1.24.0</version>
+		</dependency>
+
 	</dependencies>
 	
 	<build>
