@@ -39,8 +39,10 @@ public class PromisingCustomersService {
 
             Float promisingCustomerFactor = calculatePromisingFactor(promisingCustomer);
 
-            promisingCustomer.setFactor(promisingCustomerFactor);
-            result.add(promisingCustomer);
+            if(promisingCustomerFactor != null && promisingCustomerFactor > 0) {
+                promisingCustomer.setFactor(promisingCustomerFactor);
+                result.add(promisingCustomer);
+            }
         }
 
         return result;
