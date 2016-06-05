@@ -3,10 +3,12 @@ package com.springiscoming.service;
 import com.springiscoming.model.SiteEntry;
 import com.springiscoming.model.SiteEntryStatistic;
 import com.springiscoming.repository.SiteEntryRepository;
+import com.springiscoming.util.SiteEntryComparator;
 import org.springframework.stereotype.Service;
 
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,6 +19,9 @@ public class SiteEntryService {
 
     @Inject
     private SiteEntryStatisticsService siteEntryStatisticsService;
+
+    @Inject
+    private SiteEntryComparator siteEntryComparator;
 
     public void save(SiteEntry siteEntry) {
         this.siteEntryRepository.save(siteEntry);
@@ -39,6 +44,8 @@ public class SiteEntryService {
     }
 
     public List<SiteEntryStatistic> getSiteEntryStatistics(List<SiteEntry> siteEntries) {
-        return siteEntryStatisticsService.getStatistics(siteEntries);
+        List<SiteEntryStatistic> statistics = siteEntryStatisticsService.getStatistics(siteEntries);
+        Collections.sort(statistics, siteEntryComparator);
+        return statistics;
     }
 }
