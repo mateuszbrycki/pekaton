@@ -148,9 +148,9 @@ public class DefaultModelInitializer {
 
     private Date generateRandomDate() {
         Random call = new Random();
-        int month = call.nextInt(Calendar.FEBRUARY) + Calendar.JANUARY;
+        int month = call.nextInt(Calendar.FEBRUARY) + Calendar.DECEMBER;
         int year = 2016;
-        int day = call.nextInt(5) + 0;
+        int day = call.nextInt(10) + 0;
         GregorianCalendar calendar = new GregorianCalendar(year, month, day);
         return calendar.getTime();
     }

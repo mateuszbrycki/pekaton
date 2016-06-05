@@ -1,5 +1,7 @@
 package com.springiscoming.model;
 
+import java.util.Date;
+
 /**
  * Created by winio_000 on 2016-06-04.
  */
@@ -49,4 +51,6 @@ public class PurchaseStatistic {
     public void setValue(Double value) {
         this.value = value;
     }
+
+
 }
