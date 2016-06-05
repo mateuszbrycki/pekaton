@@ -2,13 +2,17 @@ package com.springiscoming.service;
 
 import com.springiscoming.model.Purchase;
 import com.springiscoming.model.PurchaseStatistic;
+import com.springiscoming.model.postcode.PostCodeApi;
 import com.springiscoming.model.postcode.PostCodeStatistic;
 import com.springiscoming.repository.PurchaseRepository;
+import com.springiscoming.util.DistrictUtils;
 import com.springiscoming.util.comparators.PurchaseComparator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +66,18 @@ public class PurchaseService {
         List<PostCodeStatistic> resultArray = new ArrayList<>();
 
         for(Object[] temp :  this.purchaseRepository.getPostCodesStatistics()) {
-            resultArray.add(new PostCodeStatistic((String)temp[1], (Long)temp[0]));
+
+            String postCode = (String)temp[1];
+
+            RestTemplate restTemplate = new RestTemplate();
+            PostCodeApi[] quote = restTemplate.getForObject("http://kodypocztoweapi.pl/" + postCode,PostCodeApi[].class);
+
+            String district =  quote[0].getWojewodztwo();
+
+            if(DistrictUtils.isDistrict(district)) {
+                resultArray.add(new PostCodeStatistic(postCode, (Long)temp[0], district));
+            }
+
         }
         return resultArray;
     }

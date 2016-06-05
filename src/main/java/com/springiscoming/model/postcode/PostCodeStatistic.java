@@ -7,10 +7,12 @@ public class PostCodeStatistic {
 
     private String postCode;
     private Long value;
+    private String district;
 
-    public PostCodeStatistic(String postCode, Long value) {
+    public PostCodeStatistic(String postCode, Long value, String district) {
         this.postCode = postCode;
         this.value = value;
+        this.district = district;
     }
 
     public String getPostCode() {
@@ -27,5 +29,13 @@ public class PostCodeStatistic {
 
     public void setValue(Long value) {
         this.value = value;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }
