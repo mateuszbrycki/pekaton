@@ -2,13 +2,16 @@ package com.springiscoming.service;
 
 import com.springiscoming.model.Purchase;
 import com.springiscoming.model.PurchaseStatistic;
+import com.springiscoming.model.postcode.PostCodeStatistic;
 import com.springiscoming.repository.PurchaseRepository;
 import com.springiscoming.util.comparators.PurchaseComparator;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -53,5 +56,14 @@ public class PurchaseService {
         Collections.sort(statistics, purchaseComparator);
 
         return statistics;
+    }
+
+    public List<PostCodeStatistic> getPostCodesStatistics() {
+        List<PostCodeStatistic> resultArray = new ArrayList<>();
+
+        for(Object[] temp :  this.purchaseRepository.getPostCodesStatistics()) {
+            resultArray.add(new PostCodeStatistic((String)temp[1], (Long)temp[0]));
+        }
+        return resultArray;
     }
 }

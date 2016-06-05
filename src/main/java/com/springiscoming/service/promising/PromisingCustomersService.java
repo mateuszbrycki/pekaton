@@ -39,8 +39,10 @@ public class PromisingCustomersService {
 
             Float promisingCustomerFactor = calculatePromisingFactor(promisingCustomer);
 
-            promisingCustomer.setFactor(promisingCustomerFactor);
-            result.add(promisingCustomer);
+            if(promisingCustomerFactor != null && promisingCustomerFactor > 0) {
+                promisingCustomer.setFactor(promisingCustomerFactor);
+                result.add(promisingCustomer);
+            }
         }
 
         return result;
@@ -66,12 +68,12 @@ public class PromisingCustomersService {
         promisingCustomer.setPurchasesCount(purchasesCount);
         promisingCustomer.setPurchasesSummaryCost(purchasesSummaryCost);
 
-        System.out.println("CustomerId: " + customerId +
+        /*System.out.println("CustomerId: " + customerId +
                 ", averageVisitTime: " + averageVisitTime +
                 ", purchasesCount: " + purchasesCount +
                 ", directVisitsCount: " + directVisitsCount +
                 ", purchasesSummaryCost: " + purchasesSummaryCost +
-                ", visitsCount: " + visitsCount);
+                ", visitsCount: " + visitsCount);*/
 
 
         Float visitCountFactor = new BigDecimal(Math.pow(visitsCount.doubleValue(), 2)).floatValue() * 0.1f;
