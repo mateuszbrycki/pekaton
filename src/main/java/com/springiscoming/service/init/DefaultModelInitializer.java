@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by winio_000 on 2016-06-04.
  */
@@ -87,13 +89,37 @@ public class DefaultModelInitializer {
     }
 
     private void initCustomers() {
+        initializeRundomCustomers(33);
+    }
 
-        customerService.save(new Customer(Gender.Male, "31-350", Education.Higher, "email1@gmail.com"));
-        customerService.save(new Customer(Gender.Female, "22-222", Education.Higher, "email5@default.com"));
-        customerService.save(new Customer(Gender.Male, "33-222", Education.Higher, "email3@gmail.com"));
-        customerService.save(new Customer(Gender.Female, "31-356", Education.Higher, "email4@default.com"));
-        customerService.save(new Customer(Gender.Male, "31-312", Education.Higher, "winio94@gmail.com"));
+    private void initializeRundomCustomers(int count) {
+        for (int i = 0; i < count; i++) {
+            customerService.save(new Customer(randomGender(), randomPostCode(), randomEducation(), randomEmail()));
+        }
+    }
 
+    private String randomEmail() {
+        Random random = new Random();
+        return "email" + random.nextInt(100) + "@gmail.com";
+    }
+
+    private Education randomEducation() {
+        Education[] values = Education.values();
+        return values[randomInt(values.length)];
+    }
+
+    private String randomPostCode() {
+        return valueOf(randomInt(30)) + "-" + valueOf(randomInt(400));
+    }
+
+    private int randomInt(int bound) {
+        Random random = new Random();
+        return random.nextInt(bound);
+    }
+
+    private Gender randomGender() {
+        Gender[] values = Gender.values();
+        return values[randomInt(values.length)];
     }
 
     private void initSiteEntries() {
