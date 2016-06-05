@@ -12,7 +12,7 @@ public class DateFormatter {
         return new DateTime(orderDate).toString("yyyy/MM/dd");
     }
 
-    public Date format(String purchaseDate) {
-        return new Date(purchaseDate);
+    public Date format(String date) {
+        return new Date(date);
     }
 }
