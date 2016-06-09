@@ -4,20 +4,15 @@ import com.springiscoming.exception.DistrictNotFound;
 import com.springiscoming.factory.PostCodeStatisticFactory;
 import com.springiscoming.model.Purchase;
 import com.springiscoming.model.PurchaseStatistic;
-import com.springiscoming.model.postcode.PostCodeApi;
 import com.springiscoming.model.postcode.PostCodeStatistic;
 import com.springiscoming.repository.PurchaseRepository;
-import com.springiscoming.util.DistrictUtils;
 import com.springiscoming.util.comparators.PurchaseComparator;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by winio_000 on 2016-06-04.
