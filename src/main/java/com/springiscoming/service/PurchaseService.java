@@ -1,5 +1,7 @@
 package com.springiscoming.service;
 
+import com.springiscoming.exception.DistrictNotFound;
+import com.springiscoming.factory.PostCodeStatisticFactory;
 import com.springiscoming.model.Purchase;
 import com.springiscoming.model.PurchaseStatistic;
 import com.springiscoming.model.postcode.PostCodeApi;
@@ -32,6 +34,9 @@ public class PurchaseService {
 
     @Inject
     private PurchaseComparator purchaseComparator;
+
+    @Inject
+    private PostCodeStatisticFactory postCodeStatisticFactory;
 
     public Purchase savePurchase(Purchase purchase) {
         return purchaseRepository.save(purchase);
@@ -67,17 +72,11 @@ public class PurchaseService {
 
         for(Object[] temp :  this.purchaseRepository.getPostCodesStatistics()) {
 
-            String postCode = (String)temp[1];
-
-            RestTemplate restTemplate = new RestTemplate();
-            PostCodeApi[] quote = restTemplate.getForObject("http://kodypocztoweapi.pl/" + postCode,PostCodeApi[].class);
-
-            String district =  quote[0].getWojewodztwo();
-
-            if(DistrictUtils.isDistrict(district)) {
-                resultArray.add(new PostCodeStatistic(postCode, (Long)temp[0], district));
+            try {
+                resultArray.add(this.postCodeStatisticFactory.create((String)temp[1], (Long) temp[0]));
+            } catch(DistrictNotFound e) {
+                //TODO mbrycki handle exception properly
             }
-
         }
         return resultArray;
     }
