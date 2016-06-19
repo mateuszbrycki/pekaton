@@ -3,25 +3,40 @@ package com.springiscoming.factory;
 import com.springiscoming.exception.DistrictNotFound;
 import com.springiscoming.model.postcode.PostCodeApi;
 import com.springiscoming.model.postcode.PostCodeStatistic;
-import com.springiscoming.util.DistrictUtils;
+import com.springiscoming.service.PostCodeService;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+
+import javax.inject.Inject;
+import java.util.List;
+
+import static com.springiscoming.util.DistrictUtils.isDistrict;
 
 @Component
 public class PostCodeStatisticFactory {
 
-    public PostCodeStatistic create(String postCode, Long value) throws DistrictNotFound {
+    public static final int FIRST_ONE = 0;
 
-        RestTemplate restTemplate = new RestTemplate();
-        PostCodeApi[] quote = restTemplate.getForObject("http://kodypocztoweapi.pl/" + postCode,PostCodeApi[].class);
+    @Inject
+    private PostCodeService postCodeService;
 
-        if(quote.length > 0) {
-            String district = quote[0].getWojewodztwo();
-            if(DistrictUtils.isDistrict(district)) {
+    public PostCodeStatistic createStatistic(String postCode, Long value) throws DistrictNotFound {
+        List<PostCodeApi> postCodeApi = postCodeService.retrievePostcodes(postCode);
+
+        if (isNotEmpty(postCodeApi)) {
+            String district = district(postCodeApi);
+            if (isDistrict(district)) {
                 return new PostCodeStatistic(postCode, value, district);
             }
         }
 
         throw new DistrictNotFound();
+    }
+
+    private boolean isNotEmpty(List<PostCodeApi> postCodeApi) {
+        return (!postCodeApi.isEmpty());
+    }
+
+    private String district(List<PostCodeApi> postCodeApi) {
+        return postCodeApi.get(FIRST_ONE).getWojewodztwo();
     }
 }
