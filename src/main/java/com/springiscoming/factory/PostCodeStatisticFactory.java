@@ -15,6 +15,7 @@ import static com.springiscoming.util.DistrictUtils.isDistrict;
 public class PostCodeStatisticFactory {
 
     public static final int FIRST_ONE = 0;
+
     @Inject
     private PostCodeService postCodeService;
 
