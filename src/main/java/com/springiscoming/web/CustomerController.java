@@ -32,7 +32,7 @@ public class CustomerController {
 
     @RequestMapping(path = "/promising", method = RequestMethod.GET)
     public List<PromisingCustomer> findPromisingCustomers() {
-        return promisingCustomersService.findPromisingCustomersList();
+        return promisingCustomersService.findPromisingCustomers();
     }
 
     @RequestMapping(path = "/statistics", method = RequestMethod.GET)
