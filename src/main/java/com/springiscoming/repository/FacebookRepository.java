@@ -14,11 +14,11 @@ public class FacebookRepository {
     public List<FacebookComment> getFacebookComments() {
         List<FacebookComment> facebookComments = new ArrayList<>();
 
-        facebookComments.add(new FacebookComment("Awesome idea!", 1, 2, "Noah Barton",DateUtils.generateRandomDate()));
-        facebookComments.add(new FacebookComment("Great guys! Keep going!", 3, 0, "Glorinda Lamia",DateUtils.generateRandomDate()));
+        facebookComments.add(new FacebookComment("Awesome idea!", 1, 2, "Noah Barton", DateUtils.generateRandomDate()));
+        facebookComments.add(new FacebookComment("Great guys! Keep going!", 3, 0, "Glorinda Lamia", DateUtils.generateRandomDate()));
         facebookComments.add(new FacebookComment("It sucks", 0, 0, "Alejandro Mason", DateUtils.generateRandomDate()));
-        facebookComments.add(new FacebookComment("U sure U wanna show it?", 5, 2, "Leah Baldwin",DateUtils.generateRandomDate()));
-        facebookComments.add(new FacebookComment("Pizza time!", 10, 2, "Leon Yates",DateUtils.generateRandomDate()));
+        facebookComments.add(new FacebookComment("U sure U wanna show it?", 5, 2, "Leah Baldwin", DateUtils.generateRandomDate()));
+        facebookComments.add(new FacebookComment("Pizza time!", 10, 2, "Leon Yates", DateUtils.generateRandomDate()));
 
         return facebookComments;
     }

@@ -1,4 +1,6 @@
-package com.springiscoming.apriori;import java.util.Collection;
+package com.springiscoming.apriori;
+
+import java.util.Collection;
 
 public abstract class AprioriAbstract {
 
@@ -13,6 +15,8 @@ public abstract class AprioriAbstract {
     }
 
     public abstract Collection runApriori(double minimalSupport, double minimalConfidence);
+
     public abstract Double computeSupport(Elementset elementset);
+
     public abstract Double computeConfidence(AssociationRule associationRule);
 }

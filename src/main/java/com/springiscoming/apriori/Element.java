@@ -1,34 +1,34 @@
-package com.springiscoming.apriori; /**
+package com.springiscoming.apriori;
+
+/**
  * Reprezentuje element transakcji
- * 
  */
 public class Element {
 
-	private String value;
+    private String value;
 
-	/**
-	 * @param value string representation of the item
-	 */
-	public Element(String value) {
-		this.value = value;
-	}
-	
-	public String getValue() {
-		return this.value;
-	}
+    /**
+     * @param value string representation of the item
+     */
+    public Element(String value) {
+        this.value = value;
+    }
 
-	public boolean equals(Object o) {
-		return ((Element) o).value.equals(this.value);
-	}
+    public String getValue() {
+        return this.value;
+    }
 
-	public int hashCode() {
-		return this.value.hashCode();
-	}
+    public boolean equals(Object o) {
+        return ((Element) o).value.equals(this.value);
+    }
 
-	@Override
-	public String toString()
-	{
-		return this.value.toString();
-	}
+    public int hashCode() {
+        return this.value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.value.toString();
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.SiteEntryStatistic;
+import com.springiscoming.model.siteEntry.SiteEntryStatistic;
 import com.springiscoming.util.DateFormatter;
 
 import javax.inject.Inject;
@@ -13,7 +13,7 @@ import java.util.Date;
  */
 
 @Named
-public class SiteEntryComparator implements Comparator<SiteEntryStatistic>{
+public class SiteEntryComparator implements Comparator<SiteEntryStatistic> {
 
     @Inject
     private DateFormatter dateFormatter;

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class FacebookLike {
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
     private Date day;
 
     private Integer likes;

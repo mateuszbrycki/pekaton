@@ -8,7 +8,7 @@ public class FacebookReview {
 
     private String reviewText;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
     private Date reviewAddDate;
 
     private Integer reviewValue;

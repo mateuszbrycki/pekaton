@@ -1,4 +1,6 @@
-package com.springiscoming.apriori;import java.util.*;
+package com.springiscoming.apriori;
+
+import java.util.*;
 
 
 public class AprioriStrategy extends AprioriAbstract {

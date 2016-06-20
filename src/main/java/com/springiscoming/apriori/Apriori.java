@@ -1,8 +1,7 @@
 package com.springiscoming.apriori;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.product.Product;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,11 +13,12 @@ public class Apriori {
     private Dataset dataset;
     private AprioriAbstract aprioriStrategy;
 
-    public Apriori() {}
+    public Apriori() {
+    }
 
     /**
      * Start programu, konfiguracja algorytmu, wygenerowanie wyników
-     *
+     * <p>
      * Argumenty uruchomienia programu: <nazwa pliku z danymi> <współczynnik wsparcia> <współczynnik ufnosci>
      */
     public Collection run(List<List<Product>> productList) {

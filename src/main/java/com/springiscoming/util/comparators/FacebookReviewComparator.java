@@ -1,6 +1,5 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.facebook.FacebookComment;
 import com.springiscoming.model.facebook.FacebookReview;
 
 import javax.inject.Named;

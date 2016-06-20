@@ -1,17 +1,15 @@
 package com.springiscoming.web;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.product.Product;
 import com.springiscoming.model.recomennded.RecommendedProduct;
-import com.springiscoming.service.ProductService;
 import com.springiscoming.service.apriori.AprioriService;
-import org.springframework.http.HttpStatus;
+import com.springiscoming.service.product.ProductService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.util.HashMap;
 import java.util.List;
 
 

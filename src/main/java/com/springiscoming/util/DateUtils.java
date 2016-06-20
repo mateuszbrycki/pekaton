@@ -20,9 +20,9 @@ public class DateUtils {
         List<Date> result = new ArrayList<>();
 
         Integer i = 0;
-        while(i < n) {
+        while (i < n) {
             Date date = generateRandomDate();
-            if(!result.contains(date)) {
+            if (!result.contains(date)) {
                 result.add(date);
                 i++;
             }

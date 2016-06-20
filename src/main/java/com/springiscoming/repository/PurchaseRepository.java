@@ -1,7 +1,6 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.Purchase;
-import com.springiscoming.model.postcode.PostCodeStatistic;
+import com.springiscoming.model.purchase.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

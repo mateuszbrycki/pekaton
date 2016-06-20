@@ -7,14 +7,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class PostCodeApi {
 
-    @JsonProperty("kod") private String kod;
-    @JsonProperty("miejscowosc") private String miejscowosc;
-    @JsonProperty("adres") private String adres;
-    @JsonProperty("gmina") private String gmina;
-    @JsonProperty("powiat") private String powiat;
-    @JsonProperty("wojewodztwo") private String wojewodztwo;
+    @JsonProperty("kod")
+    private String kod;
+    @JsonProperty("miejscowosc")
+    private String miejscowosc;
+    @JsonProperty("adres")
+    private String adres;
+    @JsonProperty("gmina")
+    private String gmina;
+    @JsonProperty("powiat")
+    private String powiat;
+    @JsonProperty("wojewodztwo")
+    private String wojewodztwo;
 
-    public PostCodeApi() {}
+    public PostCodeApi() {
+    }
 
     public PostCodeApi(String kod, String miejscowosc, String adres, String gmina, String powiat, String wojewodztwo) {
         this.kod = kod;

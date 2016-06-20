@@ -1,4 +1,9 @@
-package com.springiscoming.apriori;import java.util.*;
+package com.springiscoming.apriori;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Vector;
 
 /**
  * Reprezentacja zbioru elementów transakcji
@@ -10,7 +15,8 @@ public class Elementset {
     /**
      * Domyślny konstruktor
      */
-    public Elementset() {}
+    public Elementset() {
+    }
 
     /**
      * Tworzy zbiór elementów na podstawie podanego elementset
@@ -142,7 +148,7 @@ public class Elementset {
         Iterator itItem = this.elements.iterator();
         Integer i = 0;
         while (itItem.hasNext() && i < 2) {
-            return (Element)itItem.next();
+            return (Element) itItem.next();
         }
 
         return null;
@@ -151,7 +157,9 @@ public class Elementset {
     /**
      * Zwraca elementy zbioru
      */
-    public Set getElements() { return this.elements; }
+    public Set getElements() {
+        return this.elements;
+    }
 
     @Override
     public String toString() {

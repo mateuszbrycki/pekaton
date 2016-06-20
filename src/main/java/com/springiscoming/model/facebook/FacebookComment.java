@@ -12,7 +12,7 @@ public class FacebookComment {
     private Integer sharesCount;
     private String userName;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
     private Date addDate;
 
     public FacebookComment(String comment, Integer commentCount, Integer sharesCount, String userName, Date addDate) {

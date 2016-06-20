@@ -1,6 +1,6 @@
 package com.springiscoming.model.recomennded;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.product.Product;
 
 import java.util.List;
 

@@ -3,14 +3,15 @@ package com.springiscoming.service.init;
 import com.springiscoming.enums.Delivery;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
-import com.springiscoming.model.Customer;
-import com.springiscoming.model.Product;
-import com.springiscoming.model.Purchase;
-import com.springiscoming.model.SiteEntry;
-import com.springiscoming.service.CustomerService;
-import com.springiscoming.service.ProductService;
-import com.springiscoming.service.PurchaseService;
-import com.springiscoming.service.SiteEntryService;
+import com.springiscoming.model.customer.Customer;
+import com.springiscoming.model.product.Product;
+import com.springiscoming.model.purchase.Purchase;
+import com.springiscoming.model.siteEntry.SiteEntry;
+import com.springiscoming.service.customer.CustomerService;
+import com.springiscoming.service.postcode.PostCodeProvider;
+import com.springiscoming.service.product.ProductService;
+import com.springiscoming.service.purchase.PurchaseService;
+import com.springiscoming.service.siteentry.SiteEntryService;
 import com.springiscoming.util.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class DefaultModelInitializer {
     private SiteEntryService siteEntryService;
 
     @Inject
-    private PostalCodePovider postalCodePovider;
+    private PostCodeProvider postCodeProvider;
 
     @PostConstruct
     private void posConstruct() {
@@ -109,7 +110,7 @@ public class DefaultModelInitializer {
     }
 
     private String randomPostCode() {
-        List<String> codes = postalCodePovider.postalCodes();
+        List<String> codes = postCodeProvider.postalCodes();
         return codes.get(new Random().nextInt(codes.size() - 1));
     }
 

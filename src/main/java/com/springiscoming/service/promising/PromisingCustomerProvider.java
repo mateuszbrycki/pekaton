@@ -1,11 +1,10 @@
 package com.springiscoming.service.promising;
 
 import com.springiscoming.exception.InvalidArgumentException;
-import com.springiscoming.model.Customer;
+import com.springiscoming.model.customer.Customer;
 import com.springiscoming.model.promising.PromisingCustomer;
-import com.springiscoming.service.FactorCalculator;
-import com.springiscoming.service.PurchaseService;
-import com.springiscoming.service.SiteEntryService;
+import com.springiscoming.service.purchase.PurchaseService;
+import com.springiscoming.service.siteentry.SiteEntryService;
 import org.apache.log4j.Logger;
 
 import javax.inject.Inject;

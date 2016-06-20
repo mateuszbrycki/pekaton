@@ -1,17 +1,15 @@
 package com.springiscoming.web;
 
-import com.springiscoming.model.Purchase;
-import com.springiscoming.model.PurchaseStatistic;
 import com.springiscoming.model.postcode.PostCodeStatistic;
-import com.springiscoming.service.PurchaseService;
-import org.springframework.cglib.core.CollectionUtils;
+import com.springiscoming.model.purchase.Purchase;
+import com.springiscoming.model.purchase.PurchaseStatistic;
+import com.springiscoming.service.purchase.PurchaseService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 
 /**

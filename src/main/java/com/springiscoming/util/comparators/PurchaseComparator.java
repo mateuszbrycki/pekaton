@@ -1,6 +1,6 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.PurchaseStatistic;
+import com.springiscoming.model.purchase.PurchaseStatistic;
 import com.springiscoming.util.DateFormatter;
 
 import javax.inject.Inject;

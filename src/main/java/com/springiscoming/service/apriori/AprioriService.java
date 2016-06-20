@@ -4,11 +4,11 @@ import com.springiscoming.apriori.Apriori;
 import com.springiscoming.apriori.AssociationRule;
 import com.springiscoming.apriori.Element;
 import com.springiscoming.apriori.Elementset;
-import com.springiscoming.model.Product;
-import com.springiscoming.model.Purchase;
+import com.springiscoming.model.product.Product;
+import com.springiscoming.model.purchase.Purchase;
 import com.springiscoming.model.recomennded.RecommendedProduct;
-import com.springiscoming.service.ProductService;
-import com.springiscoming.service.PurchaseService;
+import com.springiscoming.service.product.ProductService;
+import com.springiscoming.service.purchase.PurchaseService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -31,7 +31,7 @@ public class AprioriService {
 
         List<List<Product>> aprioriPurchaseproducts = new ArrayList<>();
 
-        for(Purchase purchase : purchaseService.findAll()) {
+        for (Purchase purchase : purchaseService.findAll()) {
             List<Product> purchaseProducts = productService.getProductListsByPurchaseId(purchase.getPurchaseId());
             aprioriPurchaseproducts.add(purchaseProducts);
         }
@@ -58,16 +58,16 @@ public class AprioriService {
                 List<Product> rightSideProductList = new ArrayList<>();
 
                 Iterator rightSideIterator = rightSide.getIterator();
-                while(rightSideIterator.hasNext()) {
+                while (rightSideIterator.hasNext()) {
 
-                    Element rightSideTempElement = (Element)rightSideIterator.next();
+                    Element rightSideTempElement = (Element) rightSideIterator.next();
                     rightSideProductList.add(productService.findOneByCode(rightSideTempElement.getValue()));
                 }
 
-                if(leftSideFromMap != null && (leftSideFromMap.size() < rightSide.size())) {
+                if (leftSideFromMap != null && (leftSideFromMap.size() < rightSide.size())) {
                     //replace element
                     resultMap.put(leftSideProduct, rightSideProductList);
-                } else if(leftSideFromMap == null) {
+                } else if (leftSideFromMap == null) {
                     //add new element
                     resultMap.put(leftSideProduct, rightSideProductList);
                 }
@@ -80,10 +80,10 @@ public class AprioriService {
         return resultList;
     }
 
-    private List<RecommendedProduct> convertFromMapToList( HashMap<Product, List<Product>> resultMap) {
+    private List<RecommendedProduct> convertFromMapToList(HashMap<Product, List<Product>> resultMap) {
         List<RecommendedProduct> result = new ArrayList<>();
 
-        for(Map.Entry<Product, List<Product>> mapEntry : resultMap.entrySet()) {
+        for (Map.Entry<Product, List<Product>> mapEntry : resultMap.entrySet()) {
             RecommendedProduct product = new RecommendedProduct(mapEntry.getKey(), mapEntry.getValue());
             result.add(product);
         }

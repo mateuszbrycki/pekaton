@@ -1,8 +1,8 @@
 package com.springiscoming.service.promising;
 
-import com.springiscoming.model.Customer;
+import com.springiscoming.model.customer.Customer;
 import com.springiscoming.model.promising.PromisingCustomer;
-import com.springiscoming.service.CustomerService;
+import com.springiscoming.service.customer.CustomerService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

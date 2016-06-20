@@ -1,9 +1,9 @@
 package com.springiscoming.service.promising;
 
-import com.springiscoming.model.Customer;
+import com.springiscoming.builder.CustomerBuilder;
+import com.springiscoming.model.customer.Customer;
 import com.springiscoming.model.promising.PromisingCustomer;
-import com.springiscoming.service.CustomerService;
-import com.springiscoming.service.builders.CustomerBuilder;
+import com.springiscoming.service.customer.CustomerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
