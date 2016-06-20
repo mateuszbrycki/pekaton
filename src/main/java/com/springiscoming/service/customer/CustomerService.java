@@ -18,15 +18,14 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     public void save(Customer customer) {
-        this.customerRepository.save(customer);
+        customerRepository.save(customer);
     }
 
     public Customer findOneById(Long customerId) {
-        return this.customerRepository.findOneByCustomerId(customerId);
+        return customerRepository.findOneByCustomerId(customerId);
     }
 
     public List<Customer> findAll() {
-        return this.customerRepository.findAll();
+        return customerRepository.findAll();
     }
-
 }
