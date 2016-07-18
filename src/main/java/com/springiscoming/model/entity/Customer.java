@@ -1,4 +1,4 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
@@ -9,7 +9,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "CUSTOMER")
 public class Customer {
 
     @Id

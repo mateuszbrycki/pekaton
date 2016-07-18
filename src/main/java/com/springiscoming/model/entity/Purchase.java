@@ -1,4 +1,4 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springiscoming.enums.Delivery;
@@ -12,75 +12,26 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "PURCHASE")
 public class Purchase {
-
-    private Long purchaseId;
-    private List<Product> products;
-
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
-    private Date orderDate;
-    private Customer customer;
-    private Double value;
-    @Enumerated(EnumType.STRING)
-    private Delivery delivery;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PURCHASE_ID")
-    public Long getPurchaseId() {
-        return purchaseId;
-    }
-
-    public void setPurchaseId(Long purchaseId) {
-        this.purchaseId = purchaseId;
-    }
+    private Long purchaseId;
 
     @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "PRODUCT_ID")
-    public List<Product> getProducts() {
-        return products;
-    }
+    @JoinColumn(name = "productId")
+    private List<Product> products;
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    @Column
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
+    private Date orderDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    public Customer getCustomer() {
-        return customer;
-    }
+    private Customer customer;
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+    private Double value;
 
-    @Column
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    @Column
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-    }
+    @Enumerated(EnumType.STRING)
+    private Delivery delivery;
 
     public Purchase() {
     }
@@ -90,6 +41,54 @@ public class Purchase {
         this.orderDate = orderDate;
         this.customer = customer;
         this.value = value;
+        this.delivery = delivery;
+    }
+
+    public Long getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(Long purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
     }
 

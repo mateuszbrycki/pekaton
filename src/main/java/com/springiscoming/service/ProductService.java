@@ -1,6 +1,6 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.entity.Product;
 import com.springiscoming.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 

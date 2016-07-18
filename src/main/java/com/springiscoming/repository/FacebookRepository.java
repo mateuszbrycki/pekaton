@@ -1,7 +1,7 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.facebook.FacebookComment;
-import com.springiscoming.model.facebook.FacebookReview;
+import com.springiscoming.model.other.facebook.FacebookComment;
+import com.springiscoming.model.other.facebook.FacebookReview;
 import com.springiscoming.util.DateUtils;
 import org.springframework.stereotype.Repository;
 

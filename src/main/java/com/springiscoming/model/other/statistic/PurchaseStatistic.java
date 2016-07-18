@@ -1,4 +1,4 @@
-package com.springiscoming.model;
+package com.springiscoming.model.other.statistic;
 
 import java.util.Date;
 

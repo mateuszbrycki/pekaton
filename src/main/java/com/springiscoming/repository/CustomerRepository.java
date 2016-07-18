@@ -1,6 +1,6 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.Customer;
+import com.springiscoming.model.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

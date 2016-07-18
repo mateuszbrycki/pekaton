@@ -1,6 +1,6 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

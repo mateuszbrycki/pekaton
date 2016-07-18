@@ -1,8 +1,7 @@
 package com.springiscoming.apriori;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.entity.Product;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 import java.util.Iterator;

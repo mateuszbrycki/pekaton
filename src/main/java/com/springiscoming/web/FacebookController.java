@@ -1,8 +1,8 @@
 package com.springiscoming.web;
 
-import com.springiscoming.model.facebook.FacebookComment;
-import com.springiscoming.model.facebook.FacebookLike;
-import com.springiscoming.model.facebook.FacebookReview;
+import com.springiscoming.model.other.facebook.FacebookComment;
+import com.springiscoming.model.other.facebook.FacebookLike;
+import com.springiscoming.model.other.facebook.FacebookReview;
 import com.springiscoming.service.FacebookService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

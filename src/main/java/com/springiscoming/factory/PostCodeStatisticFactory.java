@@ -1,8 +1,8 @@
 package com.springiscoming.factory;
 
 import com.springiscoming.exception.DistrictNotFound;
-import com.springiscoming.model.postcode.PostCodeApi;
-import com.springiscoming.model.postcode.PostCodeStatistic;
+import com.springiscoming.model.other.postcode.PostCodeApi;
+import com.springiscoming.model.other.postcode.PostCodeStatistic;
 import com.springiscoming.service.PostCodeService;
 import org.springframework.stereotype.Component;
 

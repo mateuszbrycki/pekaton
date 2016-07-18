@@ -1,6 +1,6 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.postcode.PostCodeApi;
+import com.springiscoming.model.other.postcode.PostCodeApi;
 import org.springframework.web.client.RestTemplate;
 
 import javax.inject.Inject;

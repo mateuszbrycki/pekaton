@@ -1,6 +1,6 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.facebook.FacebookComment;
+import com.springiscoming.model.other.facebook.FacebookComment;
 import org.junit.Before;
 import org.junit.Test;
 

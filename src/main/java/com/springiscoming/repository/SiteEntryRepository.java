@@ -1,7 +1,6 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.Customer;
-import com.springiscoming.model.SiteEntry;
+import com.springiscoming.model.entity.SiteEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

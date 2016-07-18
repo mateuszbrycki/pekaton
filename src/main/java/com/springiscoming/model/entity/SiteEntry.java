@@ -1,4 +1,4 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -6,20 +6,20 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "SITE_ENTRY")
 public class SiteEntry {
 
     @Id
     @GeneratedValue
     private String entryId;
+
     private Boolean isDirectEntry;
+
     private Integer visitTime;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
-    @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
     private Date entryDate;
 

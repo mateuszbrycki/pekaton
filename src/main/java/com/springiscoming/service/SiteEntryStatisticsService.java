@@ -1,8 +1,8 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.Customer;
-import com.springiscoming.model.SiteEntry;
-import com.springiscoming.model.SiteEntryStatistic;
+import com.springiscoming.model.entity.Customer;
+import com.springiscoming.model.entity.SiteEntry;
+import com.springiscoming.model.other.statistic.SiteEntryStatistic;
 import com.springiscoming.util.DateFormatter;
 import org.springframework.stereotype.Service;
 

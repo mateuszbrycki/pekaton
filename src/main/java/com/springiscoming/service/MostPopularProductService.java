@@ -1,7 +1,7 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.Product;
-import com.springiscoming.model.Purchase;
+import com.springiscoming.model.entity.Product;
+import com.springiscoming.model.entity.Purchase;
 import com.springiscoming.util.MapSortService;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "STUDENT")
 public class Student {
 
     @Id

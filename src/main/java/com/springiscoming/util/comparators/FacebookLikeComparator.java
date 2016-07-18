@@ -1,6 +1,6 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.facebook.FacebookLike;
+import com.springiscoming.model.other.facebook.FacebookLike;
 
 import javax.inject.Named;
 import java.util.Comparator;
