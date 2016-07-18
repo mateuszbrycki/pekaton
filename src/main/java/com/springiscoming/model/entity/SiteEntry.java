@@ -1,7 +1,5 @@
 package com.springiscoming.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,14 +14,11 @@ public class SiteEntry {
 
     private Integer visitTime;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "customerId")
+    @ManyToOne
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
     private Date entryDate;
-
-    public SiteEntry() {}
 
     public SiteEntry(Boolean isDirectEntry, Integer visitTime, Customer customer, Date entryDate) {
         this.isDirectEntry = isDirectEntry;

@@ -15,7 +15,7 @@ import java.util.List;
 public class Purchase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long purchaseId;
 
     @OneToMany(cascade = CascadeType.MERGE)
@@ -26,6 +26,7 @@ public class Purchase {
     private Date orderDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
     private Double value;
