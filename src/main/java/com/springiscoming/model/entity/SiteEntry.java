@@ -20,6 +20,9 @@ public class SiteEntry {
 
     private Date entryDate;
 
+    public SiteEntry() {
+    }
+
     public SiteEntry(Boolean isDirectEntry, Integer visitTime, Customer customer, Date entryDate) {
         this.isDirectEntry = isDirectEntry;
         this.visitTime = visitTime;

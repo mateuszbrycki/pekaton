@@ -4,6 +4,8 @@ import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 
 import javax.persistence.*;
+import java.util.Set;
+
 /**
  * Created by winio_000 on 2016-06-04.
  */
@@ -14,6 +16,9 @@ public class Customer {
     @Id
     @GeneratedValue
     private Long customerId;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Purchase> purchases;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -40,6 +45,14 @@ public class Customer {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public Gender getGender() {

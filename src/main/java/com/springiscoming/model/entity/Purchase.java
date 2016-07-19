@@ -1,6 +1,7 @@
 package com.springiscoming.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
@@ -18,16 +19,24 @@ public class Purchase {
     @GeneratedValue
     private Long purchaseId;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
+
+
+
+
+
+
+
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "productId")
     private List<Product> products;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
     private Date orderDate;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "customerId")
-    private Customer customer;
 
     private Double value;
 

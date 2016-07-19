@@ -29,6 +29,10 @@ import static com.springiscoming.util.DateUtils.generateRandomDate;
 @Transactional
 public class DefaultModelInitializer {
 
+    private static final int CUSTOMER_AMMOUNT = 33;
+    public static final int SITE_ENTRIES_AMMOUNT = 100;
+    private static final int PURCHASE_AMMOUNT = 80;
+
     @Inject
     private PurchaseService purchaseService;
 
@@ -45,37 +49,49 @@ public class DefaultModelInitializer {
     private PostalCodePovider postalCodePovider;
 
     @PostConstruct
-    private void posConstruct() {
-        initCustomers(33);
+    public void posConstruct() {
+        initCustomers();
         initPurchases();
-        initSiteEntries(100);
+        initSiteEntries();
         initProducts();
     }
 
-    private void initPurchases() {
-
-        purchaseService.savePurchase(order(1L));
-        purchaseService.savePurchase(order(2L));
-        purchaseService.savePurchase(order(2L));
-        purchaseService.savePurchase(order(3L));
-        purchaseService.savePurchase(order(4L));
-        purchaseService.savePurchase(order(5L));
-        purchaseService.savePurchase(order(6L));
-        purchaseService.savePurchase(order(7L));
-        purchaseService.savePurchase(order(8L));
-        purchaseService.savePurchase(order(9L));
-        purchaseService.savePurchase(order(10L));
+    public void initCustomers() {
+        for (int i = 0; i < CUSTOMER_AMMOUNT; i++) {
+            customerService.save(new Customer(randomGender(), randomPostCode(), randomEducation(), randomEmail()));
+        }
     }
 
-    private Purchase order(long customerId) {
-        return new Purchase(productService.getAll(),
-                generateRandomDate(),
-                customerService.findOneById(customerId),
-                new Random().nextDouble() * 100,
-                Delivery.Courier);
+    public void initPurchases() {
+        Random random = new Random();
+        int customerAmmount = customerService.findAll().size();
+
+        for (int i = 0; i < PURCHASE_AMMOUNT; i++) {
+            Purchase purchase = new Purchase(
+                    productService.getAll(),
+                    generateRandomDate(),
+                    customerService.findOneById(randomIdFromRange(0, customerAmmount, random)),
+                    randomPurchaseValue(random),
+                    Delivery.Courier);
+
+            purchaseService.savePurchase(purchase);
+        }
     }
 
-    private void initProducts() {
+    public void initSiteEntries() {
+        Random random = new Random();
+        int customerAmmount = customerService.findAll().size();
+        for (int i = 0; i < SITE_ENTRIES_AMMOUNT; i++) {
+            siteEntryService.save(new SiteEntry(
+                    random.nextBoolean(),
+                    random.nextInt(1000),
+                    customerService.findOneById(randomIdFromRange(0, customerAmmount, random)),
+                    generateRandomDate()
+            ));
+        }
+    }
+
+    public void initProducts() {
         productService.save(new Product("code1", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
         productService.save(new Product("code1", purchaseService.findPurchaseById(2L), 11.99F, "product1"));
         productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
@@ -89,14 +105,8 @@ public class DefaultModelInitializer {
 
     }
 
-    private void initCustomers(int count) {
-        initializeRundomCustomers(count);
-    }
-
-    private void initializeRundomCustomers(int count) {
-        for (int i = 0; i < count; i++) {
-            customerService.save(new Customer(randomGender(), randomPostCode(), randomEducation(), randomEmail()));
-        }
+    private double randomPurchaseValue(Random random) {
+        return random.nextDouble() * 100;
     }
 
     private String randomEmail() {
@@ -122,19 +132,6 @@ public class DefaultModelInitializer {
     private Gender randomGender() {
         Gender[] values = Gender.values();
         return values[randomInt(values.length)];
-    }
-
-    private void initSiteEntries(int siteEntriesAmmount) {
-        Random random = new Random();
-        int customerAmmount = customerService.findAll().size();
-        for (int i = 0; i < siteEntriesAmmount; i++) {
-            siteEntryService.save(new SiteEntry(
-                    random.nextBoolean(),
-                    random.nextInt(1000),
-                    customerService.findOneById(randomIdFromRange(0, customerAmmount, random)),
-                    generateRandomDate()
-            ));
-        }
     }
 
     private Long randomIdFromRange(int start, int end, Random random) {
