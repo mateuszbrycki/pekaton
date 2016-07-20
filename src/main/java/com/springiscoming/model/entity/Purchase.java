@@ -1,12 +1,13 @@
 package com.springiscoming.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+
+import static javax.persistence.TemporalType.*;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -19,15 +20,16 @@ public class Purchase {
     @GeneratedValue
     private Long purchaseId;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customerId")
+    @JsonManagedReference
     private Customer customer;
 
     @ManyToMany
+    @JsonManagedReference
     private Set<Product> products;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
+    @Temporal(DATE)
     private Date orderDate;
 
     private Double value;

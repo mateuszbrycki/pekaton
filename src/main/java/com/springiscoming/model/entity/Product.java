@@ -1,8 +1,11 @@
 package com.springiscoming.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 /**
@@ -18,8 +21,8 @@ public class Product {
 
     private String code;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "products")
+    @JsonBackReference
     private Set<Purchase> purchases;
 
     private Float price;

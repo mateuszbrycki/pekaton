@@ -1,10 +1,13 @@
 package com.springiscoming.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 
 import javax.persistence.*;
 import java.util.Set;
+
+import static javax.persistence.EnumType.STRING;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -18,14 +21,15 @@ public class Customer {
     private Long customerId;
 
     @OneToMany(mappedBy = "customer")
+    @JsonBackReference
     private Set<Purchase> purchases;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private Gender gender;
 
     private String postCode;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private Education education;
 
     private String eMail;
