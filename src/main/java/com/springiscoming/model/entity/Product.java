@@ -3,6 +3,7 @@ package com.springiscoming.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -18,8 +19,8 @@ public class Product {
     private String code;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private Purchase purchase;
+    @ManyToMany(mappedBy = "products")
+    private Set<Purchase> purchases;
 
     private Float price;
 
@@ -28,9 +29,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String code, Purchase purchase, Float price, String name) {
+    public Product(String code, Float price, String name) {
         this.code = code;
-        this.purchase = purchase;
         this.price = price;
         this.name = name;
     }
@@ -51,8 +51,12 @@ public class Product {
         this.code = code;
     }
 
-    public Purchase getPurchase() {
-        return purchase;
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public Float getPrice() {
@@ -69,10 +73,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
     }
 
     @Override

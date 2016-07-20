@@ -16,10 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 import static com.springiscoming.util.DateUtils.generateRandomDate;
+import static java.util.Collections.shuffle;
+import static java.util.UUID.randomUUID;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -29,9 +32,15 @@ import static com.springiscoming.util.DateUtils.generateRandomDate;
 @Transactional
 public class DefaultModelInitializer {
 
-    private static final int CUSTOMER_AMMOUNT = 33;
-    public static final int SITE_ENTRIES_AMMOUNT = 100;
-    private static final int PURCHASE_AMMOUNT = 80;
+    private static final int PRODUCTS_IN_PURCHASE_AMOUNT = 8;
+    private static final int SITE_ENTRIES_AMOUNT = 100;
+    private static final int PRODUCT_CODE_LENGTH = 30;
+    private static final int PURCHASE_AMOUNT = 100;
+    private static final int CUSTOMER_AMOUNT = 10;
+    private static final int PRODUCT_AMOUNT = 15;
+    private static final int THOUSAND = 1000;
+    private static final int ZERO = 0;
+    private Random random = new Random();
 
     @Inject
     private PurchaseService purchaseService;
@@ -51,27 +60,33 @@ public class DefaultModelInitializer {
     @PostConstruct
     public void posConstruct() {
         initCustomers();
+        initProducts();
         initPurchases();
         initSiteEntries();
-        initProducts();
+    }
+
+    public void initProducts() {
+        for (int i = ZERO; i < PRODUCT_AMOUNT; i++) {
+            productService.save(new Product(randomCodeFromUUID(), random.nextFloat() * THOUSAND, "product" + i));
+        }
     }
 
     public void initCustomers() {
-        for (int i = 0; i < CUSTOMER_AMMOUNT; i++) {
+        for (int i = ZERO; i < CUSTOMER_AMOUNT; i++) {
             customerService.save(new Customer(randomGender(), randomPostCode(), randomEducation(), randomEmail()));
         }
     }
 
     public void initPurchases() {
-        Random random = new Random();
-        int customerAmmount = customerService.findAll().size();
+        List<Product> products = productService.getAll();
 
-        for (int i = 0; i < PURCHASE_AMMOUNT; i++) {
+        for (int i = ZERO; i < PURCHASE_AMOUNT; i++) {
+            shuffle(products);
             Purchase purchase = new Purchase(
-                    productService.getAll(),
+                    new HashSet<>(products.subList(ZERO, PRODUCTS_IN_PURCHASE_AMOUNT)),
                     generateRandomDate(),
-                    customerService.findOneById(randomIdFromRange(0, customerAmmount, random)),
-                    randomPurchaseValue(random),
+                    customerService.findOneById(randomIdBelow(CUSTOMER_AMOUNT)),
+                    randomPurchaseValue(),
                     Delivery.Courier);
 
             purchaseService.savePurchase(purchase);
@@ -79,63 +94,49 @@ public class DefaultModelInitializer {
     }
 
     public void initSiteEntries() {
-        Random random = new Random();
-        int customerAmmount = customerService.findAll().size();
-        for (int i = 0; i < SITE_ENTRIES_AMMOUNT; i++) {
+        for (int i = ZERO; i < SITE_ENTRIES_AMOUNT; i++) {
             siteEntryService.save(new SiteEntry(
                     random.nextBoolean(),
-                    random.nextInt(1000),
-                    customerService.findOneById(randomIdFromRange(0, customerAmmount, random)),
+                    random.nextInt(THOUSAND),
+                    customerService.findOneById(randomIdBelow(CUSTOMER_AMOUNT)),
                     generateRandomDate()
             ));
         }
     }
 
-    public void initProducts() {
-        productService.save(new Product("code1", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(2L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
-        productService.save(new Product("code2", purchaseService.findPurchaseById(1L), 11.99F, "product2"));
-        productService.save(new Product("code2", purchaseService.findPurchaseById(2L), 11.99F, "product2"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(4L), 11.99F, "product3"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(1L), 11.99F, "product3"));
-        productService.save(new Product("code4", purchaseService.findPurchaseById(1L), 11.99F, "product4"));
-
+    private String randomCodeFromUUID() {
+        return randomUUID().toString().substring(PRODUCT_CODE_LENGTH);
     }
 
-    private double randomPurchaseValue(Random random) {
-        return random.nextDouble() * 100;
+    private double randomPurchaseValue() {
+        return random.nextDouble() * THOUSAND;
     }
 
     private String randomEmail() {
-        Random random = new Random();
-        return "email" + random.nextInt(100) + "@gmail.com";
+        return "email" + random.nextInt(THOUSAND) + "@gmail.com";
     }
 
     private Education randomEducation() {
         Education[] values = Education.values();
-        return values[randomInt(values.length)];
+        return values[random.nextInt(values.length)];
     }
 
     private String randomPostCode() {
         List<String> codes = postalCodePovider.postalCodes();
-        return codes.get(new Random().nextInt(codes.size() - 1));
-    }
-
-    private int randomInt(int bound) {
-        Random random = new Random();
-        return random.nextInt(bound);
+        return codes.get(random.nextInt(codes.size() - 1));
     }
 
     private Gender randomGender() {
         Gender[] values = Gender.values();
-        return values[randomInt(values.length)];
+        return values[random.nextInt(values.length)];
     }
 
-    private Long randomIdFromRange(int start, int end, Random random) {
-        long randomLong = (long) (random.nextInt((end - start)) + start);
-        return randomLong > 0 && randomLong < end ? randomLong : 1;
+    private Long randomIdBelow(int number) {
+        long id = (long) (random.nextInt((number)));
+        return isProperId(number, id) ? id : 1;
+    }
+
+    private boolean isProperId(int number, long randomIdValue) {
+        return randomIdValue > ZERO && randomIdValue < number;
     }
 }

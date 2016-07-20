@@ -6,7 +6,7 @@ import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -24,16 +24,8 @@ public class Purchase {
     @JoinColumn(name = "customerId")
     private Customer customer;
 
-
-
-
-
-
-
-
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "productId")
-    private List<Product> products;
+    @ManyToMany
+    private Set<Product> products;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "CET")
     private Date orderDate;
@@ -46,7 +38,7 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(List<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery) {
+    public Purchase(Set<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery) {
         this.products = products;
         this.orderDate = orderDate;
         this.customer = customer;
@@ -62,11 +54,11 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 
