@@ -5,14 +5,22 @@ import com.springiscoming.model.Customer;
 public class PromisingCustomer {
 
     private Customer customer;
-    private Float factor;
-
     private Float averageVisitTime;
     private Integer visitsCount;
     private Integer directVisitsCount;
-
     private Integer purchasesCount;
     private Float purchasesSummaryCost;
+    private Float factor;
+
+    public PromisingCustomer(Customer customer, Float averageVisitTime, Integer visitsCount, Integer directVisitsCount, Integer purchasesCount, Float purchasesSummaryCost, Float factor) {
+        this.customer = customer;
+        this.averageVisitTime = averageVisitTime;
+        this.visitsCount = visitsCount;
+        this.directVisitsCount = directVisitsCount;
+        this.purchasesCount = purchasesCount;
+        this.purchasesSummaryCost = purchasesSummaryCost;
+        this.factor = factor;
+    }
 
     public Customer getCustomer() {
         return customer;
@@ -20,14 +28,6 @@ public class PromisingCustomer {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public Float getFactor() {
-        return factor;
-    }
-
-    public void setFactor(Float promisingFactor) {
-        this.factor = promisingFactor;
     }
 
     public Float getAverageVisitTime() {
@@ -65,20 +65,29 @@ public class PromisingCustomer {
     public Float getPurchasesSummaryCost() {
         return purchasesSummaryCost;
     }
+
     public void setPurchasesSummaryCost(Float purchasesSummaryCost) {
         this.purchasesSummaryCost = purchasesSummaryCost;
+    }
+
+    public Float getFactor() {
+        return factor;
+    }
+
+    public void setFactor(Float factor) {
+        this.factor = factor;
     }
 
     @Override
     public String toString() {
         return "PromisingCustomer{" +
                 "customer=" + customer +
-                ", factor=" + factor +
                 ", averageVisitTime=" + averageVisitTime +
                 ", visitsCount=" + visitsCount +
                 ", directVisitsCount=" + directVisitsCount +
                 ", purchasesCount=" + purchasesCount +
                 ", purchasesSummaryCost=" + purchasesSummaryCost +
+                ", factor=" + factor +
                 '}';
     }
 }
