@@ -1,4 +1,4 @@
-package com.springiscoming.model.facebook;
+package com.springiscoming.model.other.facebook;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

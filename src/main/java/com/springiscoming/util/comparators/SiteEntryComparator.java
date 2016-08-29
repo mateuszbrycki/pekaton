@@ -1,6 +1,6 @@
 package com.springiscoming.util.comparators;
 
-import com.springiscoming.model.SiteEntryStatistic;
+import com.springiscoming.model.other.statistic.SiteEntryStatistic;
 import com.springiscoming.util.DateFormatter;
 
 import javax.inject.Inject;

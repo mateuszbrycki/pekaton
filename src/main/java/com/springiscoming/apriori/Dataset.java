@@ -1,6 +1,6 @@
 package com.springiscoming.apriori;
 
-import com.springiscoming.model.Product;
+import com.springiscoming.model.entity.Product;
 
 import java.io.*;
 import java.util.*;

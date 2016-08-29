@@ -1,4 +1,4 @@
-package com.springiscoming.model.postcode;
+package com.springiscoming.model.other.postcode;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,27 +1,35 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
 
 import javax.persistence.*;
+import java.util.Set;
+
+import static javax.persistence.EnumType.STRING;
+
 /**
  * Created by winio_000 on 2016-06-04.
  */
 
 @Entity
-@Table(name = "CUSTOMER")
 public class Customer {
 
     @Id
     @GeneratedValue
     private Long customerId;
 
-    @Enumerated(EnumType.STRING)
+    @OneToMany(mappedBy = "customer")
+    @JsonBackReference
+    private Set<Purchase> purchases;
+
+    @Enumerated(STRING)
     private Gender gender;
 
     private String postCode;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private Education education;
 
     private String eMail;
@@ -41,6 +49,14 @@ public class Customer {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
     }
 
     public Gender getGender() {

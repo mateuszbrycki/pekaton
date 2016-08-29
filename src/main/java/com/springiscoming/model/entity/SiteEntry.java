@@ -1,29 +1,27 @@
-package com.springiscoming.model;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+package com.springiscoming.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "SITE_ENTRY")
 public class SiteEntry {
 
     @Id
     @GeneratedValue
     private String entryId;
+
     private Boolean isDirectEntry;
+
     private Integer visitTime;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @ManyToOne
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
-    @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
     private Date entryDate;
 
-    public SiteEntry() {}
+    public SiteEntry() {
+    }
 
     public SiteEntry(Boolean isDirectEntry, Integer visitTime, Customer customer, Date entryDate) {
         this.isDirectEntry = isDirectEntry;

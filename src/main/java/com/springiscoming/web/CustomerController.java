@@ -1,8 +1,8 @@
 package com.springiscoming.web;
 
 import com.springiscoming.enums.Gender;
-import com.springiscoming.model.Customer;
-import com.springiscoming.model.promising.PromisingCustomer;
+import com.springiscoming.model.entity.Customer;
+import com.springiscoming.model.other.promising.PromisingCustomer;
 import com.springiscoming.service.CustomerService;
 import com.springiscoming.service.promising.PromisingCustomersService;
 import org.springframework.web.bind.annotation.CrossOrigin;

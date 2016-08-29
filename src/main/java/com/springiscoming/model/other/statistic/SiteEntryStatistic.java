@@ -1,4 +1,4 @@
-package com.springiscoming.model;
+package com.springiscoming.model.other.statistic;
 
 /**
  * Created by winio_000 on 2016-06-05.

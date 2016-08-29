@@ -1,7 +1,7 @@
 package com.springiscoming.web;
 
-import com.springiscoming.model.SiteEntry;
-import com.springiscoming.model.SiteEntryStatistic;
+import com.springiscoming.model.entity.SiteEntry;
+import com.springiscoming.model.other.statistic.SiteEntryStatistic;
 import com.springiscoming.service.SiteEntryService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

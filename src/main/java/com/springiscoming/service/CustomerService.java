@@ -1,6 +1,6 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.Customer;
+import com.springiscoming.model.entity.Customer;
 import com.springiscoming.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.springiscoming.repository;
 
-import com.springiscoming.model.Student;
+import com.springiscoming.model.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

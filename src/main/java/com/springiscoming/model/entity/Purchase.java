@@ -1,33 +1,53 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springiscoming.enums.Delivery;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.TemporalType.*;
 
 /**
  * Created by winio_000 on 2016-06-04.
  */
 
 @Entity
-@Table(name = "PURCHASE")
 public class Purchase {
 
+    @Id
+    @GeneratedValue
     private Long purchaseId;
-    private List<Product> products;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd", timezone="CET")
-    private Date orderDate;
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    @JsonManagedReference
     private Customer customer;
+
+    @ManyToMany
+    @JsonManagedReference
+    private Set<Product> products;
+
+    @Temporal(DATE)
+    private Date orderDate;
+
     private Double value;
+
     @Enumerated(EnumType.STRING)
     private Delivery delivery;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PURCHASE_ID")
+    public Purchase() {
+    }
+
+    public Purchase(Set<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery) {
+        this.products = products;
+        this.orderDate = orderDate;
+        this.customer = customer;
+        this.value = value;
+        this.delivery = delivery;
+    }
+
     public Long getPurchaseId() {
         return purchaseId;
     }
@@ -36,17 +56,14 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "PRODUCT_ID")
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 
-    @Column
     public Date getOrderDate() {
         return orderDate;
     }
@@ -55,7 +72,6 @@ public class Purchase {
         this.orderDate = orderDate;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     public Customer getCustomer() {
         return customer;
     }
@@ -64,7 +80,6 @@ public class Purchase {
         this.customer = customer;
     }
 
-    @Column
     public Double getValue() {
         return value;
     }
@@ -73,23 +88,11 @@ public class Purchase {
         this.value = value;
     }
 
-    @Column
     public Delivery getDelivery() {
         return delivery;
     }
 
     public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
-    }
-
-    public Purchase() {
-    }
-
-    public Purchase(List<Product> products, Date orderDate, Customer customer, Double value, Delivery delivery) {
-        this.products = products;
-        this.orderDate = orderDate;
-        this.customer = customer;
-        this.value = value;
         this.delivery = delivery;
     }
 

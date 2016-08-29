@@ -3,22 +3,26 @@ package com.springiscoming.service.init;
 import com.springiscoming.enums.Delivery;
 import com.springiscoming.enums.Education;
 import com.springiscoming.enums.Gender;
-import com.springiscoming.model.Customer;
-import com.springiscoming.model.Product;
-import com.springiscoming.model.Purchase;
-import com.springiscoming.model.SiteEntry;
+import com.springiscoming.model.entity.Customer;
+import com.springiscoming.model.entity.Product;
+import com.springiscoming.model.entity.Purchase;
+import com.springiscoming.model.entity.SiteEntry;
 import com.springiscoming.service.CustomerService;
 import com.springiscoming.service.ProductService;
 import com.springiscoming.service.PurchaseService;
 import com.springiscoming.service.SiteEntryService;
-import com.springiscoming.util.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+
+import static com.springiscoming.util.DateUtils.generateRandomDate;
+import static java.util.Collections.shuffle;
+import static java.util.UUID.randomUUID;
 
 /**
  * Created by winio_000 on 2016-06-04.
@@ -27,6 +31,16 @@ import java.util.Random;
 @Service
 @Transactional
 public class DefaultModelInitializer {
+
+    private static final int PRODUCTS_IN_PURCHASE_AMOUNT = 8;
+    private static final int SITE_ENTRIES_AMOUNT = 100;
+    private static final int PRODUCT_CODE_LENGTH = 30;
+    private static final int PURCHASE_AMOUNT = 100;
+    private static final int CUSTOMER_AMOUNT = 10;
+    private static final int PRODUCT_AMOUNT = 15;
+    private static final int THOUSAND = 1000;
+    private static final int ZERO = 0;
+    private Random random = new Random();
 
     @Inject
     private PurchaseService purchaseService;
@@ -44,133 +58,85 @@ public class DefaultModelInitializer {
     private PostalCodePovider postalCodePovider;
 
     @PostConstruct
-    private void posConstruct() {
+    public void posConstruct() {
         initCustomers();
+        initProducts();
         initPurchases();
         initSiteEntries();
-        initProducts();
     }
 
-    private void initPurchases() {
-
-        purchaseService.savePurchase(order(1L));
-        purchaseService.savePurchase(order(2L));
-        purchaseService.savePurchase(order(2L));
-        purchaseService.savePurchase(order(3L));
-        purchaseService.savePurchase(order(4L));
-        purchaseService.savePurchase(order(5L));
-        purchaseService.savePurchase(order(6L));
-        purchaseService.savePurchase(order(7L));
-        purchaseService.savePurchase(order(8L));
-        purchaseService.savePurchase(order(9L));
-        purchaseService.savePurchase(order(10L));
+    public void initProducts() {
+        for (int i = ZERO; i < PRODUCT_AMOUNT; i++) {
+            productService.save(new Product(randomCodeFromUUID(), random.nextFloat() * THOUSAND, "product" + i));
+        }
     }
 
-    private Purchase order(long customerId) {
-        return new Purchase(productService.getAll(),
-                DateUtils.generateRandomDate(),
-                customerService.findOneById(customerId),
-                new Random().nextDouble() * 100,
-                Delivery.Courier);
-    }
-
-    private void initProducts() {
-        productService.save(new Product("code1", purchaseService.findPurchaseById(1L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(2L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
-        productService.save(new Product("code1", purchaseService.findPurchaseById(3L), 11.99F, "product1"));
-        productService.save(new Product("code2", purchaseService.findPurchaseById(1L), 11.99F, "product2"));
-        productService.save(new Product("code2", purchaseService.findPurchaseById(2L), 11.99F, "product2"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(3L), 11.99F, "product3"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(4L), 11.99F, "product3"));
-        productService.save(new Product("code3", purchaseService.findPurchaseById(1L), 11.99F, "product3"));
-        productService.save(new Product("code4", purchaseService.findPurchaseById(1L), 11.99F, "product4"));
-
-    }
-
-    private void initCustomers() {
-        initializeRundomCustomers(33);
-    }
-
-    private void initializeRundomCustomers(int count) {
-        for (int i = 0; i < count; i++) {
+    public void initCustomers() {
+        for (int i = ZERO; i < CUSTOMER_AMOUNT; i++) {
             customerService.save(new Customer(randomGender(), randomPostCode(), randomEducation(), randomEmail()));
         }
     }
 
+    public void initPurchases() {
+        List<Product> products = productService.getAll();
+
+        for (int i = ZERO; i < PURCHASE_AMOUNT; i++) {
+            shuffle(products);
+            Purchase purchase = new Purchase(
+                    new HashSet<>(products.subList(ZERO, PRODUCTS_IN_PURCHASE_AMOUNT)),
+                    generateRandomDate(),
+                    customerService.findOneById(randomIdBelow(CUSTOMER_AMOUNT)),
+                    randomPurchaseValue(),
+                    Delivery.Courier);
+
+            purchaseService.savePurchase(purchase);
+        }
+    }
+
+    public void initSiteEntries() {
+        for (int i = ZERO; i < SITE_ENTRIES_AMOUNT; i++) {
+            siteEntryService.save(new SiteEntry(
+                    random.nextBoolean(),
+                    random.nextInt(THOUSAND),
+                    customerService.findOneById(randomIdBelow(CUSTOMER_AMOUNT)),
+                    generateRandomDate()
+            ));
+        }
+    }
+
+    private String randomCodeFromUUID() {
+        return randomUUID().toString().substring(PRODUCT_CODE_LENGTH);
+    }
+
+    private double randomPurchaseValue() {
+        return random.nextDouble() * THOUSAND;
+    }
+
     private String randomEmail() {
-        Random random = new Random();
-        return "email" + random.nextInt(100) + "@gmail.com";
+        return "email" + random.nextInt(THOUSAND) + "@gmail.com";
     }
 
     private Education randomEducation() {
         Education[] values = Education.values();
-        return values[randomInt(values.length)];
+        return values[random.nextInt(values.length)];
     }
 
     private String randomPostCode() {
         List<String> codes = postalCodePovider.postalCodes();
-        return codes.get(new Random().nextInt(codes.size() - 1));
-    }
-
-    private int randomInt(int bound) {
-        Random random = new Random();
-        return random.nextInt(bound);
+        return codes.get(random.nextInt(codes.size() - 1));
     }
 
     private Gender randomGender() {
         Gender[] values = Gender.values();
-        return values[randomInt(values.length)];
+        return values[random.nextInt(values.length)];
     }
 
-    private void initSiteEntries() {
-
-        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(1L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 180, customerService.findOneById(1L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 180, customerService.findOneById(1L), DateUtils.generateRandomDate()));
-
-        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 100, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 15, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 8, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 4, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 15, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 58, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 100, customerService.findOneById(2L), DateUtils.generateRandomDate()));
-
-        siteEntryService.save(new SiteEntry(true, 200, customerService.findOneById(3L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(true, 180, customerService.findOneById(3L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(true, 300, customerService.findOneById(3L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(true, 20, customerService.findOneById(3L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(true, 15, customerService.findOneById(3L), DateUtils.generateRandomDate()));
-
-        siteEntryService.save(new SiteEntry(true, 400, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 16, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 78, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 98, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 400, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 37, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 60, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 78, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 500, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 550, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 600, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 14, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 89, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(4L), DateUtils.generateRandomDate()));
-
-        siteEntryService.save(new SiteEntry(true, 15, customerService.findOneById(5L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(true, 69, customerService.findOneById(5L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 300, customerService.findOneById(5L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 900, customerService.findOneById(5L), DateUtils.generateRandomDate()));
-        siteEntryService.save(new SiteEntry(false, 10, customerService.findOneById(5L), DateUtils.generateRandomDate()));
+    private Long randomIdBelow(int number) {
+        long id = (long) (random.nextInt((number)));
+        return isProperId(number, id) ? id : 1;
     }
 
+    private boolean isProperId(int number, long randomIdValue) {
+        return randomIdValue > ZERO && randomIdValue < number;
+    }
 }

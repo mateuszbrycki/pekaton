@@ -1,4 +1,4 @@
-package com.springiscoming.model.postcode;
+package com.springiscoming.model.other.postcode;
 
 /**
  * Created by Mateusz on 05.06.2016.

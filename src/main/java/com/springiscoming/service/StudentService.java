@@ -1,6 +1,6 @@
 package com.springiscoming.service;
 
-import com.springiscoming.model.Student;
+import com.springiscoming.model.entity.Student;
 import com.springiscoming.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 

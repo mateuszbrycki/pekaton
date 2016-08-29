@@ -1,7 +1,7 @@
 package com.springiscoming.factory;
 
-import com.springiscoming.model.postcode.PostCodeApi;
-import com.springiscoming.model.postcode.PostCodeStatistic;
+import com.springiscoming.model.other.postcode.PostCodeApi;
+import com.springiscoming.model.other.postcode.PostCodeStatistic;
 import com.springiscoming.service.PostCodeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

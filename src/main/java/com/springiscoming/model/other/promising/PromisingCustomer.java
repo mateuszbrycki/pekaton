@@ -1,6 +1,6 @@
-package com.springiscoming.model.promising;
+package com.springiscoming.model.other.promising;
 
-import com.springiscoming.model.Customer;
+import com.springiscoming.model.entity.Customer;
 
 public class PromisingCustomer {
 

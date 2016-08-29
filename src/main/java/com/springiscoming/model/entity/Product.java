@@ -1,26 +1,43 @@
-package com.springiscoming.model;
+package com.springiscoming.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 
 /**
  * Created by winio_000 on 2016-06-04.
  */
 
 @Entity
-@Table(name = "PRODUCT")
 public class Product {
-
-    private Long productId;
-    private String code;
-    private Purchase purchase;
-    private Float price;
-    private String name;
 
     @Id
     @GeneratedValue
-    @Column(name = "PRODUCT_ID")
+    private Long productId;
+
+    private String code;
+
+    @ManyToMany(mappedBy = "products")
+    @JsonBackReference
+    private Set<Purchase> purchases;
+
+    private Float price;
+
+    private String name;
+
+    public Product() {
+    }
+
+    public Product(String code, Float price, String name) {
+        this.code = code;
+        this.price = price;
+        this.name = name;
+    }
+
     public Long getProductId() {
         return productId;
     }
@@ -29,7 +46,6 @@ public class Product {
         this.productId = productId;
     }
 
-    @Column
     public String getCode() {
         return code;
     }
@@ -38,14 +54,14 @@ public class Product {
         this.code = code;
     }
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "PURCHASE_ID")
-    public Purchase getPurchase() {
-        return purchase;
+    public Set<Purchase> getPurchases() {
+        return purchases;
     }
 
-    @Column
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
     public Float getPrice() {
         return price;
     }
@@ -54,26 +70,11 @@ public class Product {
         this.price = price;
     }
 
-    @Column
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPurchase(Purchase purchase) {
-        this.purchase = purchase;
-    }
-
-    public Product() {
-    }
-
-    public Product(String code, Purchase purchase, Float price, String name) {
-        this.code = code;
-        this.purchase = purchase;
-        this.price = price;
         this.name = name;
     }
 

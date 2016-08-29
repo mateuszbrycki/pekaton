@@ -2,9 +2,9 @@ package com.springiscoming.service;
 
 import com.springiscoming.exception.DistrictNotFound;
 import com.springiscoming.factory.PostCodeStatisticFactory;
-import com.springiscoming.model.Purchase;
-import com.springiscoming.model.PurchaseStatistic;
-import com.springiscoming.model.postcode.PostCodeStatistic;
+import com.springiscoming.model.entity.Purchase;
+import com.springiscoming.model.other.statistic.PurchaseStatistic;
+import com.springiscoming.model.other.postcode.PostCodeStatistic;
 import com.springiscoming.repository.PurchaseRepository;
 import com.springiscoming.util.comparators.PurchaseComparator;
 import org.springframework.stereotype.Service;
